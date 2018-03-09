@@ -1,0 +1,868 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* helpdesk_lite
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20180309\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-09 20:47+0000\n"
+"PO-Revision-Date: 2018-03-09 16:18-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_EC\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: helpdesk_lite
+#: code:addons/helpdesk_lite/models/helpdesk_ticket.py:62
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copia)"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_kanban_view
+msgid "<b>Project:</b>"
+msgstr "<b>Proyecto:</b>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_config_settings
+msgid "<span>(*) This configuration is related to the company you're logged into.</span>"
+msgstr "<span>(*) Esta configuración está relacionada con la compañía en la que está conectado</span>"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_defaults
+msgid "A Python dictionary that will be evaluated to provide default values when creating new records for this alias."
+msgstr "Diccionario Python a evaluar para proporcionar valores por defecto cuando un nuevo registro se cree para este seudónimo."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_ticket_kanban_state
+msgid ""
+"A Ticket's kanban state indicates special situations affecting it:\n"
+"\n"
+"                                           * Normal is the default situation\n"
+"\n"
+"                                           * Blocked indicates something is preventing the progress of this ticket\n"
+"\n"
+"                                           * Ready for next stage indicates the ticket is ready to go to next stage"
+msgstr ""
+"El estado kanban de un ticket indica situaciones especiales que lo afectan:\n"
+"\n"
+"                                           *Normal es la situación predeterminada\n"
+"\n"
+"                                           *Bloqueado indica que algo está impidiendo el progreso de este ticket\n"
+"\n"
+"                                           * Listo para la siguiente etapa indica que el ticket está listo para pasar a la siguiente etapa"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "Accept Emails From"
+msgstr "Aceptar Correos Desde"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_active
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_active
+msgid "Active"
+msgstr "Activo"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+msgid "Add an internal note..."
+msgstr "Añadir una nota interna..."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_contact
+msgid "Alias Contact Security"
+msgstr "Seudónimo del contacto de seguridad"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_name
+msgid "Alias Name"
+msgstr "Seudónimo"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_domain
+msgid "Alias domain"
+msgstr "Seudónimo del dominio"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_model_id
+msgid "Aliased Model"
+msgstr "Modelo con seudónimo"
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.team,name:helpdesk_lite.team_alpha
+msgid "Alpha Team"
+msgstr "Equipo Alpha "
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_config_settings
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_search
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_user_id
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Assigned to"
+msgstr "Asignado(a) a"
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.team,name:helpdesk_lite.team_beta
+msgid "Beta Team"
+msgstr "Equipo Beta"
+
+#. module: helpdesk_lite
+#: selection:helpdesk_lite.ticket,kanban_state:0
+msgid "Blocked"
+msgstr "Bloqueado"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_config_settings
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.stage,name:helpdesk_lite.stage_help4
+msgid "Canceled"
+msgstr "Cancelado"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,help:helpdesk_lite.support_team_config_action
+#: model:ir.actions.act_window,help:helpdesk_lite.support_team_dashboard_action
+msgid "Click here to define a new support team."
+msgstr "Haga clic aquí para definir un nuevo equipo de soporte."
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,help:helpdesk_lite.helpdesk_stage_action
+msgid "Click to set a new stage in your support pipeline."
+msgstr "Haga clic para establecer una nueva etapa en su canal de soporte."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_color
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_color
+msgid "Color Index"
+msgstr "Índice de colores"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_company_id
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_company_id
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Company"
+msgstr "Compañía"
+
+#. module: helpdesk_lite
+#: model:ir.ui.menu,name:helpdesk_lite.menu_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,name:helpdesk_lite.action_config_settings
+msgid "Configure Helpdesk"
+msgstr "Configure Helpdesk"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_contact_name
+msgid "Contact Name"
+msgstr "Nombre"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Create Day"
+msgstr "Día de creación"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_create_uid
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_create_uid
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_create_uid
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_create_date
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_create_date
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_create_date
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_tree_view
+msgid "Creation Date"
+msgstr "Fecha De Creación"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+msgid "Current stage of the issue"
+msgstr "Etapa actual del problema"
+
+#. module: helpdesk_lite
+#: code:addons/helpdesk_lite/models/helpdesk_ticket.py:71
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_partner_id
+#, python-format
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: helpdesk_lite
+#: code:addons/helpdesk_lite/models/helpdesk_ticket.py:73
+#, python-format
+msgid "Customer Email"
+msgstr "Correo electrónico del cliente"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,name:helpdesk_lite.support_team_dashboard_action
+#: model:ir.ui.menu,name:helpdesk_lite.menu_dash
+msgid "Dashboard"
+msgstr "Tablero"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_date_deadline
+msgid "Deadline"
+msgstr "Fecha límite"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_defaults
+msgid "Default Values"
+msgstr "Valores por defecto"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_default_name
+msgid "Default ticket name"
+msgstr "Nombre de ticket predeterminado"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+msgid "Delegate"
+msgstr "Delegar"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_kanban_view
+msgid "Delete"
+msgstr "Eliminar"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+msgid "Description"
+msgstr "Descripción"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_display_name
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_display_name
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_display_name
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_kanban_view
+msgid "Edit ticket"
+msgstr "Editar ticket"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_email_from
+msgid "Email"
+msgstr "Email"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "Email Alias"
+msgstr "Pseudónimo de correo"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_ticket_email_from
+msgid "Email address of the contact"
+msgstr "Correo del contacto"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_stage_requirements
+msgid "Enter here the internal requirements for this stage (ex: Offer sent to customer). It will appear as a tooltip over the stage's name."
+msgstr "Ponga aquí los requerimientos internos para esta etapa (ej: Oferta enviada al cliente). Aparecerán como un tooltip sobre el nombre de la etapa."
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+msgid "Extra Info"
+msgstr "Información Adicional"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.project_feature_tree_view
+msgid "Feature Tracker Tree"
+msgstr "Árbol de seguimiento de funciones"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.project_feature_tree_view
+msgid "Feature description"
+msgstr "Descripción de funciones"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_fold
+msgid "Folded in Pipeline"
+msgstr "Archivado en el embudo"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "Follow this support team to automatically track the events associated to users of this team."
+msgstr "Siga a este equipo de soporte para rastrear automáticamente los eventos asociados a los usuarios de este equipo."
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_search
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: helpdesk_lite
+#: model:ir.module.category,name:helpdesk_lite.module_category_helpdesk_lite_management
+#: model:ir.ui.menu,name:helpdesk_lite.menu_root
+msgid "Helpdesk"
+msgstr "Helpdesk"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_config_settings
+msgid "Helpdesk Management"
+msgstr "Gestión de Helpdesk"
+
+#. module: helpdesk_lite
+#: model:ir.model,name:helpdesk_lite.model_helpdesk_lite_ticket
+msgid "Helpdesk Tickets"
+msgstr "Helpdesk Tickets"
+
+#. module: helpdesk_lite
+#: model:ir.module.category,description:helpdesk_lite.module_category_helpdesk_lite_management
+msgid "Helps you manage your support requests"
+msgstr "Le ayuda a administrar sus solicitudes de soporte"
+
+#. module: helpdesk_lite
+#: selection:helpdesk_lite.ticket,priority:0
+msgid "High"
+msgstr "Alto"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+msgid "I Take It"
+msgstr "Lo tomo"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_id
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_id
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_id
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_id
+msgid "ID"
+msgstr "ID"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_parent_thread_id
+msgid "ID of the parent record holding the alias (example: project holding the task creation alias)"
+msgstr "ID del registro padre que tiene el seudónimo. (ejemplo: el proyecto que contiene el seudónimo para la creación de tareas)"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_active
+msgid "If the active field is set to false, it will allow you to hide the support team without removing it."
+msgstr "Si el campo activo está configurado en falso, le permitirá ocultar el equipo de soporte sin eliminarlo."
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.stage,name:helpdesk_lite.stage_help2
+msgid "InProgress"
+msgstr "En progreso"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_config_settings_module_helpdesk_lite_website
+msgid "Installs module helpdesk_lite_website"
+msgstr "Instala el módulo helpdesk_lite_website"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+msgid "Issue"
+msgstr "Incidencias"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_tree_view
+msgid "Issue Tracker Tree"
+msgstr "Árbol de seguimiento de incidencias"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_legend_blocked
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_legend_blocked
+msgid "Kanban Blocked Explanation"
+msgstr "Explicación bloqueada Kanban"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_legend_normal
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_legend_normal
+msgid "Kanban Ongoing Explanation"
+msgstr "Explicación en marcha Kanban"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_kanban_state
+msgid "Kanban State"
+msgstr "Estado Kanban"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_legend_done
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_legend_done
+msgid "Kanban Valid Explanation"
+msgstr "Explicación válida Kanban"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Last Message"
+msgstr "Último Mensaje"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings___last_update
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage___last_update
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team___last_update
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_write_uid
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_write_uid
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_write_uid
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_write_date
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_write_date
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_write_date
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: helpdesk_lite
+#: selection:helpdesk_lite.ticket,priority:0
+msgid "Low"
+msgstr "Baja"
+
+#. module: helpdesk_lite
+#: model:res.groups,name:helpdesk_lite.group_helpdesk_lite_manager
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "More Info"
+msgstr "Más información"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_search
+msgid "My Teams"
+msgstr "Mis equipos"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "My Tickets"
+msgstr "Mis Tickets"
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.stage,name:helpdesk_lite.stage_help1
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "New"
+msgstr "Nuevo"
+
+#. module: helpdesk_lite
+#: code:addons/helpdesk_lite/models/helpdesk_ticket.py:94
+#, python-format
+msgid "No Subject"
+msgstr "Sin asunto"
+
+#. module: helpdesk_lite
+#: selection:helpdesk_lite.ticket,kanban_state:0
+#: selection:helpdesk_lite.ticket,priority:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.team,name:helpdesk_lite.team_omega
+msgid "Omega Team"
+msgstr "Equipo Omega"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_force_thread_id
+msgid "Optional ID of a thread (record) to which all incoming messages will be attached, even if they did not reply to it. If set, this will disable the creation of new records completely."
+msgstr "Id. opcional de un hilo (registro) al que todos los mensajes entrantes serán adjuntados, incluso si no fueron respuestas del mismo. Si se establece, se deshabilitará completamente la creación de nuevos registros."
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.team_all
+msgid "Our teams"
+msgstr "Nuestros equipos"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_stage_legend_blocked
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_ticket_legend_blocked
+msgid "Override the default value displayed for the blocked state for kanban selection, when the task or issue is in that stage."
+msgstr "Sustituir el valor predeterminado que se muestra para el estado de bloqueo para la selección de Kanban, cuando la tarea o asunto está en esa etapa ."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_stage_legend_done
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_ticket_legend_done
+msgid "Override the default value displayed for the done state for kanban selection, when the task or issue is in that stage."
+msgstr "Sustituir el valor predeterminado que se muestra el estado de hecho para la selección de Kanban, cuando la tarea o asunto está en esa etapa ."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_stage_legend_normal
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_ticket_legend_normal
+msgid "Override the default value displayed for the normal state for kanban selection, when the task or issue is in that stage."
+msgstr "Sustituir el valor predeterminado que se muestra para el estado normal para la selección de Kanban, cuando la tarea o asunto está en esa etapa."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_user_id
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_parent_model_id
+msgid "Parent Model"
+msgstr "Modelo padre"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_parent_thread_id
+msgid "Parent Record Thread ID"
+msgstr "ID del hilo del registro padre"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_parent_model_id
+msgid "Parent model holding the alias. The model holding the alias reference is not necessarily the model given by alias_model_id (example: project (parent_model) and task (model))"
+msgstr "El modelo padre al que pertenece el alias. La referencia del alias del modelo perteneciente no es necesariamente el modelo manejado por el modelo alias (ejemplo: proyectos (modelo padre) y tareas (modelo))"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_contact
+msgid ""
+"Policy to post a message on the document using the mailgateway.\n"
+"- everyone: everyone can post\n"
+"- partners: only authenticated partners\n"
+"- followers: only followers of the related document or members of following channels\n"
+msgstr ""
+"Política para colocar un mensaje en el documento mediante la pasarela de correo.\n"
+"- Todo el mundo: Cualquier usuario puede publicar\n"
+"- Socios: solo socios comprobados\n"
+"- Seguidores: Solo los seguidores del documento relacionado o miembros de los siguientes canales\n"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_priority
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_tree_view
+#: model:ir.ui.view,arch_db:helpdesk_lite.project_feature_tree_view
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Priority"
+msgstr "Prioridad"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_description
+msgid "Private Note"
+msgstr "Nota privada"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+msgid "Projects:"
+msgstr "Proyectos:"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_config_settings_module_helpdesk_lite_website
+msgid "Publish on website"
+msgstr "Publicar en el sitio web"
+
+#. module: helpdesk_lite
+#: selection:helpdesk_lite.ticket,kanban_state:0
+msgid "Ready for next stage"
+msgstr "Listo para la próxima etapa"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_alias_force_thread_id
+msgid "Record Thread ID"
+msgstr "Id. del hijo de registro"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_reply_to
+msgid "Reply-To"
+msgstr "Responder a"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_requirements
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_stage_form
+msgid "Requirements"
+msgstr "Requerimientos"
+
+#. module: helpdesk_lite
+#: model:ir.ui.menu,name:helpdesk_lite.menu_tickets
+msgid "Search"
+msgstr "Buscar"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: helpdesk_lite
+#: model:ir.ui.menu,name:helpdesk_lite.menu_helpdesk_general_settings
+msgid "Settings"
+msgstr "Configuración"
+
+#. module: helpdesk_lite
+#: model:helpdesk_lite.stage,name:helpdesk_lite.stage_help3
+msgid "Solved"
+msgstr "Resuelto"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_stage_id
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_stage_form
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_stage_name
+msgid "Stage Name"
+msgstr "Nombre de etapa"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_stage_search
+msgid "Stage Search"
+msgstr "Búsqueda de Etapa"
+
+#. module: helpdesk_lite
+#: model:ir.model,name:helpdesk_lite.model_helpdesk_lite_stage
+msgid "Stage of case"
+msgstr "Etapa del caso"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,name:helpdesk_lite.helpdesk_stage_action
+#: model:ir.ui.menu,name:helpdesk_lite.menu_helpdesk_stage_act
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_stage_tree
+msgid "Stages"
+msgstr "Etapas"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,help:helpdesk_lite.helpdesk_stage_action
+msgid ""
+"Stages allow support to easily track how a specific ticket\n"
+"            is positioned in the support cycle."
+msgstr ""
+"Las etapas permiten que el soporte rastree fácilmente cómo se posiciona \n"
+"un ticket específico en el ciclo de soporte."
+
+#. module: helpdesk_lite
+#: model:ir.model,name:helpdesk_lite.model_helpdesk_lite_team
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_name
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_team_id
+#: model:ir.model.fields,field_description:helpdesk_lite.field_res_users_helpdesk_team_id
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_tree
+msgid "Support Team"
+msgstr "Equipo de soporte"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_res_users_helpdesk_team_id
+msgid "Support Team the user is member of. Used to compute the members of a support team through the inverse one2many"
+msgstr "Equipo de soporte del que el usuario es miembro. Se usa para calcular los miembros de un equipo de soporte a través del inverso one2many "
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,name:helpdesk_lite.support_team_config_action
+msgid "Support Teams"
+msgstr "Equipos de Soporte"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "Support team"
+msgstr "Equipo de Soporte"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "Support team name..."
+msgstr "Nombre del equipo de soporte ..."
+
+#. module: helpdesk_lite
+#: model:ir.ui.menu,name:helpdesk_lite.support_team_config
+msgid "Support teams"
+msgstr "Equipos de Soporte"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_search
+msgid "Supportteams Search"
+msgstr "Búsqueda de equipos de soporte"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Task"
+msgstr "Tarea"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_user_id
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_search
+msgid "Team Leader"
+msgstr "Jefe de equipo"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_team_member_ids
+#: model:ir.ui.view,arch_db:helpdesk_lite.support_team_view_form
+msgid "Team Members"
+msgstr "Miembros del equipo"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,help:helpdesk_lite.helpdesk_ticket_categ_act0
+msgid ""
+"The Odoo ticket tracker allows you to efficiently manage things\n"
+"                    like internal requests, software development bugs, customer\n"
+"                    complaints, project troubles, material breakdowns, etc."
+msgstr ""
+"El rastreador de tickets de Odoo le permite administrar de manera eficiente cosas como\n"
+" solicitudes internas, errores de desarrollo de software, quejas de clientes,\n"
+" problemas de proyectos, averías de material, etc."
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,help:helpdesk_lite.act_project_project_2_helpdesk_ticket_all
+#: model:ir.actions.act_window,help:helpdesk_lite.action_view_tickets
+msgid ""
+"The Odoo tickets tracker allows you to efficiently manage things\n"
+"                    like internal requests, software development bugs, customer\n"
+"                    complaints, project troubles, material breakdowns, etc."
+msgstr ""
+"El rastreador de tickets de Odoo le permite administrar de manera eficiente cosas \n"
+"como solicitudes internas, errores de desarrollo de software, quejas de clientes,\n"
+" problemas del proyecto, averías de material, etc."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_color
+msgid "The color of the team"
+msgstr "El color del equpio"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_reply_to
+msgid "The email address put in the 'Reply-To' of all emails sent by Odoo about cases in this support team"
+msgstr "La dirección de correo electrónico introducida en la respuesta de todos los correos electrónicos enviados por Odoo sobre casos en este equipo de soporte"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_model_id
+msgid "The model (Odoo Document Kind) to which this alias corresponds. Any incoming email that does not reply to an existing record will cause the creation of a new record of this model (e.g. a Project Task)"
+msgstr "El modelo (Tipo de documento de Odoo) al que corresponde este seudónimo. Cualquier correo entrante que no sea respuesta a un registro existente, causará la creación de un nuevo registro de este modelo (por ejemplo, una tarea de proyecto)."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_name
+msgid "The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.odoo.com>"
+msgstr "El nombre de este seudónimo de correo electrónico. Por ejemplo, \"trabajos\",  si lo que quiere es obtener los correos para <trabajos@example.odoo.com>."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_user_id
+msgid "The owner of records created upon receiving emails on this alias. If this field is not set the system will attempt to find the right owner based on the sender (From) address, or will use the Administrator account if no system user is found for that address."
+msgstr "El propietario de los registros creados al recibir correos electrónicos en este seudónimo. Si el campo no está establecido, el sistema tratará de encontrar el propietario adecuado basado en la dirección del emisor (De), o usará la cuenta de administrador si no se encuentra un usuario para esa dirección."
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+msgid "There are no issues."
+msgstr "No hay incidentes."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_stage_fold
+msgid "This stage is folded in the kanban view when there are no records in that stage to display."
+msgstr "Esta etapa se repliega en la vista kanban cuando no hay registros para mostrar en la misma."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_name
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Ticket"
+msgstr "Ticket"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Ticket Search"
+msgstr "Búsqueda de Ticket"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+msgid "Ticket Summary..."
+msgstr "Resumen de Ticket ..."
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,name:helpdesk_lite.act_project_project_2_helpdesk_ticket_all
+#: model:ir.actions.act_window,name:helpdesk_lite.action_view_tickets
+#: model:ir.actions.act_window,name:helpdesk_lite.helpdesk_ticket_categ_act0
+#: model:ir.ui.menu,name:helpdesk_lite.menu_tickets_act
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_graph_view
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_pivot_view
+msgid "Tickets"
+msgstr "Tickets"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Unassigned"
+msgstr "No Asignado"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_kanban_view
+#: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: helpdesk_lite
+#: selection:helpdesk_lite.ticket,priority:0
+msgid "Urgent"
+msgstr "Urgente"
+
+#. module: helpdesk_lite
+#: model:ir.actions.act_window,help:helpdesk_lite.support_team_config_action
+#: model:ir.actions.act_window,help:helpdesk_lite.support_team_dashboard_action
+msgid ""
+"Use support team to organize your different engineers or\n"
+"                    departments into separate teams. Each team will work in\n"
+"                    its own list of tickets."
+msgstr ""
+"Use el equipo de soporte para organizar sus diferentes ingenieros o\n"
+" departamentos en equipos separados. Cada equipo trabajará en \n"
+"su propia lista de tickets."
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_stage_sequence
+msgid "Used to order stages. Lower is better."
+msgstr "Utilizado para ordenar etapas. Bajo es mejor."
+
+#. module: helpdesk_lite
+#: model:res.groups,name:helpdesk_lite.group_helpdesk_lite_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: helpdesk_lite
+#: model:ir.model,name:helpdesk_lite.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: helpdesk_lite
+#: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_ticket_team_id
+msgid "When sending mails, the default email address is taken from the support team."
+msgstr "Al enviar correos, la dirección de correo electrónico predeterminada proviene del equipo de soporte."
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.my_tickets
+msgid "Your Tickets"
+msgstr "Tus Tickets"
+
+#. module: helpdesk_lite
+#: model:ir.model,name:helpdesk_lite.model_helpdesk_lite_config_settings
+msgid "helpdesk_lite.config.settings"
+msgstr "helpdesk_lite.config.settings"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_kanban_view
+msgid "oe_kanban_text_red"
+msgstr "oe_kanban_text_red"
