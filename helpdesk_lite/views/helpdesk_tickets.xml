@@ -8,8 +8,13 @@
                 <header>
                     <button string="I Take It" type="object" name="takeit" class="oe_highlight"/>
                     <button string="Delegate" type="object" name="delegate" readonly="1"/>
+<<<<<<< HEAD
                     <!--<field name="stage_id" widget="statusbar" clickable="True"
                         options="{'fold_field': 'fold'}"/>-->
+=======
+                    <field name="stage_id" widget="statusbar" clickable="True"
+                        options="{'fold_field': 'fold'}"/>
+>>>>>>> bcc480cf121c040f2f019d6d0ba2d8e902e4069e
                 </header>
                 <sheet string="Ticket">
                     <div class="oe_button_box" name="button_box">
