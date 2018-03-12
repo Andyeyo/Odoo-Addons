@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="ticket_reporte" name="Tickets">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                    <div class="row text-left">
+                                <strong><span>TICKET DE INCIDENCIA </span><span t-field="o.id"/></strong>
+                    </div><br/>
+                    <div class="row text-left" >
+                    <span>Ticket Summary: </span>
+                        <t t-esc="o.name"/><br/>
+                    <span>Deadline: </span>
+                        <span t-field="o.date_deadline"/><br/>
+                    <span>Customer: </span>
+                        <span t-field="o.partner_id.identifier"/><br/>
+                    <span>Assigned to: </span>
+                        <span t-field="o.user_id"/><br/>
+                    <span>Priority: </span>
+                        <span t-field="o.priority"/><br/>
+                    <span>Description: </span>
+                    <span t-field="o.description"/><br/>
+                        
+                    </div>
+                       
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

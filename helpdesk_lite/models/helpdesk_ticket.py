@@ -168,6 +168,13 @@ class HelpdeskTicket(models.Model):
                 'team_id': self.env['helpdesk_lite.team'].sudo()._get_default_team_id(user_id=self.env.uid).id}
         return super(HelpdeskTicket, self).write(vals)
 
+    @api.multi
+    def action_print_ticket(self):
+        
+        return self.env['report'].get_action(
+            self,
+            'helpdesk_lite.ticket_reporte'
+        )
 
 
 

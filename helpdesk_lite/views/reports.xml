@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <report
+            id="ticket_report_print"
+            string="Ticket"
+            model="helpdesk_lite.ticket"
+            report_type="qweb-pdf"
+            name="helpdesk_lite.ticket_reporte"
+            file="helpdesk_lite.ticket_reporte"
+            multi="True"
+            menu="True"
+    />
+</odoo>

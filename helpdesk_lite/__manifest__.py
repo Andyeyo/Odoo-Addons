@@ -17,6 +17,8 @@
         'views/helpdesk_data.xml',
         'views/res_config_views.xml',
         'views/templates.xml',
+        'views/reports.xml',
+        'views/ticket_report.xml'
 
     ],
     'demo': [
