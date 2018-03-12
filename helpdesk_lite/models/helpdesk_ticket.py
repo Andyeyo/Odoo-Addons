@@ -5,6 +5,35 @@ import re
 from odoo.exceptions import AccessError
 
 
+class DelegateTicket(models.TransientModel):
+    _name='delegate.ticket'
+
+    @api.model
+    def _get_default_user(self):
+        ticket_id = self.env.context.get('active_id')
+        help_desk = self.env['helpdesk_lite.ticket'].browse(ticket_id)
+        return help_desk.user_id.id
+
+    user_id = fields.Many2one(
+        'res.users',
+        'Current User',
+        required=True,
+        readonly=True,
+        default=_get_default_user
+    )
+    user_id2 = fields.Many2one(
+        'res.users',
+        'Reassigned User',
+        required=True
+    )
+
+    @api.one
+    def action_delegate(self):
+        ticket_id = self.env.context.get('active_id')
+        help_desk = self.env['helpdesk_lite.ticket'].browse(ticket_id)
+        help_desk.user_id = self.user_id2.id
+        return {'type': 'ir.actions.at_window_close'}
+
 class HelpdeskTicket(models.Model):
     _name = "helpdesk_lite.ticket"
     _description = "Helpdesk Tickets"

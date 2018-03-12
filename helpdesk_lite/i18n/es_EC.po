@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0-20180309\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 20:47+0000\n"
-"PO-Revision-Date: 2018-03-09 16:18-0500\n"
+"POT-Creation-Date: 2018-03-12 14:11+0000\n"
+"PO-Revision-Date: 2018-03-12 09:14-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,9 +29,64 @@ msgid "<b>Project:</b>"
 msgstr "<b>Proyecto:</b>"
 
 #. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid ""
+"<br/>\n"
+"                    <span>Assigned to: </span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Asignado a: </span>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid ""
+"<br/>\n"
+"                    <span>Customer: </span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Cliente: </span>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid ""
+"<br/>\n"
+"                    <span>Deadline: </span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Fecha Límite: </span>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid ""
+"<br/>\n"
+"                    <span>Description: </span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Descripción: </span>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid ""
+"<br/>\n"
+"                    <span>Priority: </span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Prioridad: </span>"
+
+#. module: helpdesk_lite
 #: model:ir.ui.view,arch_db:helpdesk_lite.view_config_settings
 msgid "<span>(*) This configuration is related to the company you're logged into.</span>"
 msgstr "<span>(*) Esta configuración está relacionada con la compañía en la que está conectado</span>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid "<span>TICKET DE INCIDENCIA </span>"
+msgstr "<span>TICKET DE INCIDENCIA </span>"
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.ticket_reporte
+msgid "<span>Ticket Summary: </span>"
+msgstr "<span>Resumen de Ticket: </span>"
 
 #. module: helpdesk_lite
 #: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_alias_defaults
@@ -377,6 +432,11 @@ msgstr "ID del registro padre que tiene el seudónimo. (ejemplo: el proyecto que
 #: model:ir.model.fields,help:helpdesk_lite.field_helpdesk_lite_team_active
 msgid "If the active field is set to false, it will allow you to hide the support team without removing it."
 msgstr "Si el campo activo está configurado en falso, le permitirá ocultar el equipo de soporte sin eliminarlo."
+
+#. module: helpdesk_lite
+#: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
+msgid "Imprimir"
+msgstr "Imprimir"
 
 #. module: helpdesk_lite
 #: model:helpdesk_lite.stage,name:helpdesk_lite.stage_help2
@@ -778,6 +838,7 @@ msgid "This stage is folded in the kanban view when there are no records in that
 msgstr "Esta etapa se repliega en la vista kanban cuando no hay registros para mostrar en la misma."
 
 #. module: helpdesk_lite
+#: model:ir.actions.report.xml,name:helpdesk_lite.ticket_report_print
 #: model:ir.model.fields,field_description:helpdesk_lite.field_helpdesk_lite_ticket_name
 #: model:ir.ui.view,arch_db:helpdesk_lite.helpdesk_ticket_form_view
 #: model:ir.ui.view,arch_db:helpdesk_lite.view_helpdesk_ticket_filter
