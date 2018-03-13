@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+<!-- Adds all assets in Odoo -->
+        <template id="assets_backend" name="static_resources_demo_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+		        <!--These links will be called when loading your Odoo -->
+                <!--<link rel="stylesheet" href="/static_resources_demo/static/src/css/cssfile.css"/>-->
+                <script type="text/javascript" src="/openacademy/static/src/js/javascriptfile.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

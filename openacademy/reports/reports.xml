@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <report
+        id="report_session"
+        model="openacademy.session"
+        string="Reporte de Sesión"
+        name="openacademy.report_session_view"
+        file="openacademy.report_session"
+        report_type="qweb-html" />
+
+    <template id="report_session_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <h2 align="center" t-field="doc.name"/>
+                        <p style="color:red;">Desde: <span style='margin-left: 2em; color:blue;' t-field="doc.start_date" /></p>
+                        <p style="color:red;">Hasta: <span style='margin-left: 2em; color:blue;' t-field="doc.end_date"/></p>
+                        <h2>Asientos ocupados: <span t-field="doc.taken_seats"/></h2>
+                        <h3>Asistentes:</h3>
+                        <ul>
+                            <t t-foreach="doc.attendee_ids" t-as="attendee">
+                                <li style='margin-left: 2em'> <span t-field="attendee.name"/></li>
+                            </t>
+                        </ul>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
