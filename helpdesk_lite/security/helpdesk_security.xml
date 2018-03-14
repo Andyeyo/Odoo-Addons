@@ -8,14 +8,15 @@
 
     <record id="group_helpdesk_lite_user" model="res.groups">
         <field name="name">User</field>
-        <field name="implied_ids" eval="[(4, ref('group_helpdesk_lite_user'))]"/>
+        <!--<field name="implied_ids" eval="[(4, ref('group_helpdesk_lite_user'))]"/>-->
+        <!-- This means Users of this group automatically inherit those groups. It is same as inheritance-->
         <field name="category_id" ref="helpdesk_lite.module_category_helpdesk_lite_management"/>
     </record>
 
     <record id="group_helpdesk_lite_manager" model="res.groups">
         <field name="name">Manager</field>
         <field name="category_id" ref="helpdesk_lite.module_category_helpdesk_lite_management"/>
-        <field name="implied_ids" eval="[(4, ref('group_helpdesk_lite_manager'))]"/>
+        <field name="implied_ids" eval="[(4, ref('group_helpdesk_lite_user'))]"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
