@@ -60,7 +60,8 @@ class HelpdeskTicket(models.Model):
                                domain="[]",
                                copy=False,
                                group_expand='_read_group_stage_ids',
-                               default=_get_default_stage_id)
+                               default=_get_default_stage_id,
+                               readonly=True)
     priority = fields.Selection([('0', 'Low'), ('1', 'Normal'), ('2', 'High'), ('3', 'Urgent')], 'Priority', index=True, default='1', track_visibility='onchange')
     kanban_state = fields.Selection([('normal', 'Normal'), ('blocked', 'Blocked'), ('done', 'Ready for next stage')], string='Kanban State', track_visibility='onchange',
                                     required=True, default='normal',
