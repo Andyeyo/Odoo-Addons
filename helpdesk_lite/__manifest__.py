@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "HelpDesk",
+    'name': "HelpDesk Mio",
     'version': "0.1",
     'author': "Golubev",
     'category': "Tools",
