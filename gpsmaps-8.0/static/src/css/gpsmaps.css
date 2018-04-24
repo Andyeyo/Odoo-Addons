@@ -1,0 +1,26 @@
+.formulario
+{
+    width: 100%;
+}
+.fields1 {
+    float:left;
+	height: 60px;
+}
+.fields2 {
+    float:left;
+	height: 120px;
+}
+.vehicle_active {
+    background-color: #7c7bad;
+    border-radius: 0;
+    color: white;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:15px;
+    
+    
+}
+
+
+
+

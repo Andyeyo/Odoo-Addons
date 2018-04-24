@@ -1,0 +1,12 @@
+<template>
+    <t t-name="FieldTimepicker">
+        <div class="oe_field_timepicker">
+            <t t-if="widget.get('effective_readonly')">
+                <div class="oe_field_timepicker_content" />
+            </t>
+            <t t-if="! widget.get('effective_readonly')">
+                <input type="text"></input>
+            </t>
+        </div>
+    </t>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="odoo_timepicker assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/odoo_timepicker/static/lib/timepicker/jquery.timepicker.css"></link>
+                <script type="text/javascript" src="/odoo_timepicker/static/lib/timepicker/jquery.timepicker.min.js"></script>
+                <script type="text/javascript" src="/odoo_timepicker/static/src/js/odoo_timepicker.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

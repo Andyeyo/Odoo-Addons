@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="gpsmaps_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/gpsmaps/static/src/css/gpsmaps.css"/>
+                <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+                <script type="text/javascript" src="/gpsmaps/static/src/js/gpsmaps.js"/>
+            </xpath>
+        </template>
+		
+
+
+        <menuitem id="main_gpsmaps_menu" name="Geolocalizacion" groups="group_gpsmaps_user"/>
+        <menuitem id="gpsmaps_menu" name="Geolocalizar dispositivos" parent="main_gpsmaps_menu" groups="group_gpsmaps_user"/>
+
+
+        
+        <!--  -->
+    
+        <record model="ir.ui.view" id="positions_form">
+            <field name="name">positions_form</field>
+            <field name="model">gpsmaps.positions</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de posiciones">
+                    <group col="3">
+                        <group >
+                            <field name="device_id"/>
+                            <field name="address" />
+                            
+                            <field name="geofence_id"/>
+                        </group>
+                        <group >
+                            <field name="speed"/>
+                            <field name="event_id"/>
+                            <field name="milage"/>
+                        </group>
+                        <group >
+                            <field name="times"/>    
+                            <field name="power"/>
+                            <field name="other"/>       
+                        </group>
+                    </group>
+                    <div id="map2" style="width:100%; height:400px;"> MAPA</div>
+                    <script>
+                        setTimeout(function(instance)
+                        {                 
+                            metodo_position();
+                            $("a.oe_i").click(function(){
+                                metodo_position();
+                            });                            
+                        },2000);
+                    </script>
+                </form>
+            </field>
+        </record> 
+        
+        <!--  -->
+        
+        <record model="ir.ui.view" id="position_graph">
+           <field name="name">positions.graph</field>
+           <field name="model">gpsmaps.positions</field>
+           <field name="arch" type="xml">
+                <graph string="Contract Costs Per Month" type="bar" stacked="True">
+                    <field name="device_id" type="row"/>
+                    <field name="event" type="row"/>
+                    <field name="times" type="row"/>
+                    
+                    <field name="speed" avg="PROMEDIO" type="measure"/>
+                </graph>
+            </field>
+        </record>        
+        
+        <!--  -->
+               
+        <record model="ir.ui.view" id="positions_tree">
+            <field name="name">positions_tree</field>
+            <field name="model">gpsmaps.positions</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte de posiciones" colors="blue:event in ('Desaceleracion','Exceso de Velocidad');black:event == 'Reporte de Tiempo';">
+                    <field name="address"/>
+                    <field name="geofence_id"/>
+
+                    <field name="altitude"/>
+                    <field name="course"/>
+                    <field name="other"/>
+                    <field name="power"/>
+                    
+                    <field name="times"/>
+                    <field name="speed"/>
+                    <field name="event"/>
+                    <field name="event_id"/>                    
+                    <field name="gsm"/>
+                    <field name="hdop"/>
+                    <field name="milage"/>
+                    <field name="valid"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--  -->
+
+        <record model='ir.ui.view' id='gpsmaps_positions_search'>
+            <field name="name">gpsmaps.positions.search</field>
+            <field name="model">gpsmaps.positions</field>
+            <field name="arch" type="xml">
+                <search string="Reporte " >
+                    <filter name="today" domain="[('times','&gt;=',time.strftime('%Y/%m/%d 00:00:01'))]"  string="Today"/>
+                    <filter name="month" domain="[('times','&gt;=',time.strftime('%Y-%m-01 00:00:01'))]"  string="Month"/>        
+                    <field name="device_id" />
+                    <field name="times"/>
+                    <field name="event"/>
+                    <group expand="0">
+                        <filter name="groupby_device" context="{'group_by' : 'device_id'}" string="Vehicle"/>                  
+                        <filter name="groupby_event" context="{'group_by' : 'event_id'}" string="Event"/>
+                        
+                        <separator/>
+                        <filter name="groupby_hour" context="{'group_by': 'times:hour'}" string="Hour" help="Vehicle Costs by hour"/>
+                        <filter name="groupby_day" context="{'group_by': 'times:day'}" string="Day" help="Vehicle Costs by Month"/>
+                        <filter name="groupby_month" context="{'group_by': 'times:month'}" string="Month" help="Vehicle Costs by Month"/>
+                        <filter name="groupby_year" context="{'group_by': 'times:year'}" string="Year"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_geolocation_map" model="ir.actions.client">
+            <field name="name">Geolocalizacion</field>
+            <field name="tag">gpsmaps.homepage</field>
+        </record>
+        <menuitem id="menu_geolocation_map" name="Mapa" parent="gpsmaps_menu" action="action_geolocation_map"/>
+               
+
+        <record id="action_geolocation_street" model="ir.actions.client">
+            <field name="name">Street</field>
+            <field name="tag">gpsmaps.mapa</field>
+        </record>
+        <menuitem id="menu_geolocation_street" name="Street View" parent="gpsmaps_menu" action="action_geolocation_street"/>        
+        
+
+        <!-- ################################################## -->
+
+        <!--
+        <menuitem id="base.menu_project_config_project" name="Stages" parent="base.menu_definitions" sequence="1" groups="base.group_no_one"/>
+        <menuitem action="open_task_type_form" name="Task Stages" id="menu_task_types_view" parent="base.menu_project_config_project" sequence="2"/>        
+        -->
+
+
+
+        <menuitem id="gpsmaps_historicos" name="Historicos" parent="main_gpsmaps_menu" groups="group_gpsmaps_manager"/>
+
+
+        <menuitem id="historicos_reporte" name="Reportes" parent="gpsmaps_historicos" sequence="1" groups="group_gpsmaps_manager"/>
+        
+        <menuitem id="historicos_dispositivos" name="Dispositivo" parent="historicos_reporte" sequence="1" groups="group_gpsmaps_manager"/>
+        
+
+        
+        
+        <!--
+        <record model="ir.actions.act_window" id="positions_action">
+            <field name="name">Reporte de eventos</field>
+            <field name="res_model">gpsmaps.positions</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_groupby_device" : True}</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>        
+        <menuitem id="message_day" name="Eventos" parent="gpsmaps_historicos" action="positions_action"/>
+        -->
+        <record model="ir.actions.act_window" id="posiciones_action">
+            <field name="name">Reporte de eventos</field>
+            <field name="res_model">gpsmaps.positions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="filter" eval="True"/>
+            <field name="search_view_id" ref="gpsmaps_positions_search"/>
+        </record>        
+        <menuitem action="posiciones_action" name="Posiciones" id="menu_posiciones" parent="historicos_reporte" sequence="1" groups="group_gpsmaps_manager"/>   
+        
+        
+        
+                        
+        <record model="ir.actions.act_window" id="dispositivos_action">
+            <field name="name">Reporte de eventos</field>
+            <field name="res_model">gpsmaps.positions</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_groupby_device" : True}</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>        
+        <menuitem action="dispositivos_action" name="Posiciones" id="menu_dispositivos" parent="historicos_dispositivos" sequence="10" groups="group_gpsmaps_manager"/>        
+
+
+        <record model="ir.actions.act_window" id="dispositivos_eventos_action">
+            <field name="name">Reporte de eventos</field>
+            <field name="res_model">gpsmaps.positions</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_groupby_event" : True, "search_default_groupby_device" : True}</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>        
+        <menuitem action="dispositivos_eventos_action" name="Eventos" id="menu_dispositivos_eventos" parent="historicos_dispositivos" sequence="20" groups="group_gpsmaps_manager"/>
+
+
+
+
+        <record id="action_dispositivos" model="ir.actions.client">
+            <field name="name">Geolocalizacion</field>
+            <field name="tag">gpsmaps.history</field>
+        </record>
+        <menuitem id="home_page_dispositivos" name="Dispositivos" parent="gpsmaps_historicos" action="action_dispositivos" sequence="30" groups="group_gpsmaps_manager"/>
+        
+        <record id="action_dispositivos_street" model="ir.actions.client">
+            <field name="name">Geolocalizacion</field>
+            <field name="tag">gpsmaps.history_street</field>
+        </record>
+        <menuitem id="home_page_dispositivos_street" name="Street View" parent="gpsmaps_historicos" action="action_dispositivos_street" sequence="40" />
+
+        
+        <!-- ################################################## -->
+        
+
+        <record id="view_fleet_vehicle_form_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
+            <field name="arch" type="xml">
+                <field name="color" position="after">   
+                    <field name="imei" />
+                    <field name="image_gps"/>
+                    <field name="phone"/>
+                    <field name="position_id"/>
+                    <field name="geofence_id"/>
+                    <field name="history"/>
+                    
+                    
+                </field>
+            </field>
+        </record>        
+        <record id="view_fleet_vehicle_tree_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.tree</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_tree"/>
+            <field name="arch" type="xml">
+                <field name="odometer" position="after">   
+                    <field name="imei"/>
+                    <field name="image_gps"/>
+                    <field name="phone"/>
+                    <field name="position_id"/>
+                    <field name="geofence_id"/>                    
+                </field>
+            </field>
+        </record>        
+
+        <!-- ################################################## -->
+        
+        <menuitem id="gpsmaps_configuration" name="Configuracion" parent="main_gpsmaps_menu" groups="group_gpsmaps_manager"/>
+
+
+        <record model="ir.ui.view" id="geofence_form">
+            <field name="name">geofence_form</field>
+            <field name="model">gpsmaps.geofence</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de posiciones">
+                    <group col="3">
+                        <group >
+                            <field name="name"/>
+                            <field name="in_geofence_mail"/>                            
+                        </group>
+                        <group >
+                            <field name="company_id"/>
+                            <field name="out_geofence_mail"/>                            
+                        </group>
+                        <group >
+                            <input id="address" name="address" class="formulario"/><br/>
+                            <font id="search" class="oe_button oe_form_button oe_highlight" type="button">SEARCH</font>        
+                            
+                        </group>                                                
+                    </group>
+                    <group>
+                        <field name="points" class="points"/>
+                    </group>                                                
+                    
+                    <div id="map3" style="width:100%; height:400px;"> MAPA</div>
+                    <script>
+                        setTimeout(function(instance)
+                        {                 
+                            metodo_geofence("inicio");
+
+                            $("a.oe_i").click(function(){
+                                metodo_geofence();
+                            });                            
+                            $("button.oe_form_button_save, button.oe_list_add").click(function()
+                            {
+                                setTimeout(function()
+                                { 
+                                    metodo_geofence("inicio");           
+                                },1000);
+                            });
+                        },100);                        
+                        
+                    </script>
+                </form>
+            </field>
+        </record> 
+        <record model="ir.ui.view" id="geofence_tree">
+            <field name="name">geofence_tree</field>
+            <field name="model">gpsmaps.geofence</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte de posiciones">
+                    <field name="name"/>    
+                    <field name="company_id"/>
+                    <field name="in_geofence_mail"/>
+                    <field name="out_geofence_mail"/>                    
+                </tree>
+            </field>
+        </record>        
+        
+        <record model="ir.actions.act_window" id="configuration_geofence_action">
+            <field name="name">Reporte de eventos</field>
+            <field name="res_model">gpsmaps.geofence</field>
+            <field name="view_type">form</field>
+
+            <field name="view_mode">form,tree</field>
+        </record>        
+        <menuitem id="geofence_menu" name="Geocercas" parent="gpsmaps_configuration" action="configuration_geofence_action"/>
+        
+        <!--  -->
+        
+        <record model="ir.ui.view" id="standar_form">
+            <field name="name">standar_form</field>
+            <field name="model">gpsmaps.standar</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de eventos">
+                    <group col="3">
+                        <group >
+
+                            <field name="code" />
+                        </group>
+                        <group >
+                            <field name="name"/>
+
+                        </group>
+
+                    </group>
+                </form>
+            </field>
+        </record>         
+        
+        
+        <!--  -->
+        
+        <record model="ir.ui.view" id="events_form">
+            <field name="name">events_form</field>
+            <field name="model">gpsmaps.events</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de eventos">
+                    <group col="3">
+                        <group >
+                            <field name="code"/>
+                            <field name="protocol_id" />
+                            <field name="standar_id" />
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record> 
+        <record model="ir.ui.view" id="events_tree">
+            <field name="name">events_tree</field>
+            <field name="model">gpsmaps.events</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte de posiciones">
+                    <field name="code"/>
+                    <field name="protocol_id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>        
+        <record model="ir.actions.act_window" id="configuration_events_action">
+            <field name="name">Reporte de eventos</field>
+            <field name="res_model">gpsmaps.events</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+        </record>        
+        <menuitem id="events_menu" name="Eventos" parent="gpsmaps_configuration" action="configuration_events_action"/>
+        
+        <!--  -->        
+        
+        <record model="ir.ui.view" id="protocol_form">
+            <field name="name">protocol_form</field>
+            <field name="model">gpsmaps.protocol</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de protocol">
+                    <group col="3">
+                        <group >
+                            <field name="name" />
+                            <field name="protocol" />
+                            <field name="speed" />
+                            <field name="milage" />
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record> 
+        <record model="ir.ui.view" id="protocol_tree">
+            <field name="name">protocol_tree</field>
+            <field name="model">gpsmaps.protocol</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte de posiciones">
+                    <field name="name"/>
+                    <field name="protocol" />
+                    <field name="speed" />
+                    <field name="milage" />                    
+                </tree>
+            </field>
+        </record>        
+        <record model="ir.actions.act_window" id="configuration_protocol_action">
+            <field name="name">Reporte de protocol</field>
+            <field name="res_model">gpsmaps.protocol</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+        </record>        
+        <menuitem id="protocol_menu" name="Protocolos" parent="gpsmaps_configuration" action="configuration_protocol_action"/>        
+        <!--  -->
+        
+    </data>
+</openerp>
