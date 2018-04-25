@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_tms_place_tree" model="ir.ui.view">
+        <field name="name">tms.place.tree</field>
+        <field name="model">tms.place</field>
+        <field name="arch" type="xml">
+            <tree string="Places">
+                <field name="complete_name"/>
+                <field name="state_id"/>
+                <field name="country_id"/>
+                <field name="latitude"/>
+                <field name="longitude"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_tms_place_form" model="ir.ui.view">
+        <field name="name">tms.place.form</field>
+        <field name="model">tms.place</field>
+        <field name="arch" type="xml"> 
+            <form string="Places" version="9.0">
+                <header>
+                    <button name="get_coordinates" string="Get Coords from Google" type="object"/>
+                    <button name="open_in_google" string="View in Google Maps" type="object"/>
+                </header>
+                <group col="4">
+                    <field name="name" select="1"/>
+                    <field name="state_id" select="1"/>
+                    <field name="country_id" readonly="1"/>
+                    <newline/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="point" widget="geo_edit_map"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="open_view_tms_place_form" model="ir.actions.act_window">
+        <field name="name">TMS Places</field>
+        <field name="res_model">tms.place</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,geoengine</field>
+    </record>
+    <menuitem action="open_view_tms_place_form" id="menu_tms_settings_route_place_form" name="Places" parent="menu_tms_settings_routes" sequence="1"/>
+    <record id="tms_place_geoengine_view" model="ir.ui.view">
+        <field name="name">Place Geospatial View</field>
+        <field eval="16" name="priority"/>
+        <field name="model">tms.place</field>
+        <field name="arch" type="xml">
+            <geoengine>
+                <field name="name" select="1"/>
+            </geoengine>
+        </field>
+    </record>
+    <record id="geoengine_vector_layer_place" model="geoengine.vector.layer">
+        <field name="geo_field_id" ref="tms.field_tms_place_point"/>
+        <field name="name">Place Basic point</field>
+        <field eval="6" name="sequence"/>
+        <field name="view_id" ref="tms_place_geoengine_view"/>
+        <field name="geo_repr">basic</field>
+        <field eval="1" name="nb_class"/>
+        <field name="begin_color">#FF680A</field>
+    </record>
+    <record id="geoengine_raster_layer_tmsplacemapbox" model="geoengine.raster.layer">
+        <field name="raster_type">osm</field>
+        <field name="name">Place Mapbox</field>
+        <field name="view_id" ref="tms_place_geoengine_view"/>
+        <field eval="0" name="overlay"/>
+    </record>
+    <record id="geoengine_raster_layer_basic0" model="geoengine.raster.layer">
+        <field name="raster_type">d_wms</field>
+        <field name="name">basic</field>
+        <field name="url">vmap0.tiles.osgeo.org/wms/vmap0</field>
+        <field name="view_id" ref="tms_place_geoengine_view"/>
+        <field eval="1" name="overlay"/>
+    </record>
+</odoo>

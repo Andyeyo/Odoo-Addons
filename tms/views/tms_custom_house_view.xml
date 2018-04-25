@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model='ir.ui.view' id='tms_custom_house_form_view'>
+        <field name='name'>Custom House</field>
+        <field name='model'>tms.custom.house</field>
+        <field name='arch' type='xml'>
+            <form string='description'>
+                <sheet>
+                <group>
+                    <field name="name"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='tms_custom_house_tree_view'>
+        <field name='name'>Customs House</field>
+        <field name='model'>tms.custom.house</field>
+        <field name='arch' type='xml'>
+            <tree string='description' editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id='action_tms_custom_house' model='ir.actions.act_window'>
+        <field name='name'>Custom House</field>
+        <field name='res_model'>tms.custom.house</field>
+        <field name='view_type'>form</field>
+        <field name='view_mode'>tree,form</field>
+    </record>
+    <menuitem action="action_tms_custom_house" id="tms_custom_house" parent="tms.menu_tms_settings" name="Custom House" sequence="80"/>
+</odoo>

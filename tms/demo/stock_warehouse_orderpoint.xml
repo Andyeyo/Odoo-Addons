@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock.stock_warehouse_orderpoint_1" model="stock.warehouse.orderpoint">
+        <field name="active" eval="0"/>
+    </record>
+    <record id="stock.stock_warehouse_orderpoint_2" model="stock.warehouse.orderpoint">
+        <field name="active" eval="0"/>
+    </record>
+    <record id="stock.stock_warehouse_orderpoint_5" model="stock.warehouse.orderpoint">
+        <field name="active" eval="0"/>
+    </record>
+    <record id="stock.stock_warehouse_orderpoint_shop1_cpu1" model="stock.warehouse.orderpoint">
+        <field name="active" eval="0"/>
+    </record>
+</odoo>
