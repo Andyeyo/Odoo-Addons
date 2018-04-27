@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ProductsWidget">
+        <div>
+            <t t-foreach="widget.products" t-as="product">
+                <span class="oe_products_item"
+                      t-attf-style="background-color: {{ widget.color }};">
+                    <t t-esc="product"/>
+                </span>
+                <br/>
+            </t>
+        </div>
+    </t>
+    <t t-name="petstore">
+        <div>
+        </div>
+    </t>
+    <t t-name="HomePageTemplate">
+        <div style="background-color: powderblue;">This is some simple HTML</div>
+        <!--<div >Hello <t t-esc="name"/> </div>    Es cuando no se ocupa el template-->
+        <div >Hello <t t-esc="widget.name"/> </div>
+        <div><t t-raw="name.link(user_account)"/></div>
+    </t>
+</templates>

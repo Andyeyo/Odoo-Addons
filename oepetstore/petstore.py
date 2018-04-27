@@ -1,4 +1,4 @@
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 class message_of_the_day(models.Model):
     _name = "oepetstore.message_of_the_day"

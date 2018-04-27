@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
+<odoo>
     <data>
         <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
@@ -15,7 +15,7 @@
 
         <record id="action_home_page" model="ir.actions.client">
             <field name="name">Pet Store Home</field>
-            <field name="tag">petstore.homepage</field>
+            <field name="tag">petstore</field>
         </record>
 
         <menuitem id="home_page_petstore_menu" name="Home Page" parent="petstore_menu"
@@ -76,4 +76,4 @@
         <menuitem id="pet_toys_action_menu" name="Pet Toys" parent="petstore_menu"
             action="pet_toys_action"/>
     </data>
-</openerp>
+</odoo>

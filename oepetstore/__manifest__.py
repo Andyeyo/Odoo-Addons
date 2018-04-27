@@ -16,6 +16,6 @@ A wonderful application to sell pet toys.
         "oepetstore.message_of_the_day.csv",
     ],
     'depends' : ['sale_stock'],
-    'qweb': ['static/src/xml/*.xml'],
+    'qweb': ['static/src/xml/petstore.xml'],
     'application': True,
 }
