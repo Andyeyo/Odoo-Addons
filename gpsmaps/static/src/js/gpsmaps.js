@@ -19,12 +19,16 @@ odoo.gpsmaps_var.geocoder;
 odoo.gpsmaps_var.vreturn;
 
 
-odoo.gpsmaps = function (instance, local) {
-    var _t = instance.web._t,
-        _lt = instance.web._lt;
-    var QWeb = instance.web.qweb;
+odoo.define('gpsmaps.gpsmaps', function (require) {
+"use strict";
+    var Class = require('web.Class');
+    var Widget = require('web.Widget');
+    var core = require('web.core');
+    var utils = require('web.utils');
+    var _t = core._t;
+    var _lt = core._lt;
 
-    local.HomePage = instance.Widget.extend({
+    var HomePage = instance.Widget.extend({
         template: "gpsmaps_map",
         start: function () {
             var objeto = this;
@@ -33,7 +37,7 @@ odoo.gpsmaps = function (instance, local) {
             var location;
             var map;
 
-            ObjetoOdoo = new local.gpsmaps();
+            odoo.gpsmaps_var.ObjetoOdoo = new local.gpsmaps();
 
             ObjetoOdoo.del_array();
             ObjetoOdoo.clearTimer();
@@ -85,8 +89,8 @@ odoo.gpsmaps = function (instance, local) {
             }
         }
     });
-    instance.web.client_actions.add('gpsmaps.homepage', 'instance.gpsmaps.HomePage');
-
+    // instance.web.client_actions.add('gpsmaps.homepage', 'instance.gpsmaps.HomePage');
+    core.action_registry.add('gpsmaps.homepage', 'instance.gpsmaps.HomePage');
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     local.history = instance.Widget.extend({
@@ -941,7 +945,7 @@ odoo.gpsmaps = function (instance, local) {
             else this.clearTimer();
         }
     });
-}
+});
 
 function metodo_history() {
     var map = odoo.gpsmaps_var.map;

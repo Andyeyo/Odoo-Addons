@@ -4,7 +4,7 @@
         <template id="assets_backend" name="gpsmaps_assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/gpsmaps/static/src/css/gpsmaps.css"/>
-                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAZNLsXBFxk1DxUdhkWVrWrcHEOKHc7E80"></script>
                 <script type="text/javascript" src="/gpsmaps/static/src/js/gpsmaps.js"/>
             </xpath>
         </template>
