@@ -5,3 +5,47 @@
     border: 1px solid black;
     border-radius: 3px;
 }
+
+.oe_color_div {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+.oe_petstore_motd {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #F0EEEE;
+}
+
+.oe_petstore_homepage {
+    display: table;
+}
+
+.oe_petstore_homepage_left {
+    display: table-cell;
+    width : 300px;
+}
+
+.oe_petstore_homepage_right {
+    display: table-cell;
+    width : 300px;
+}
+
+.oe_petstore_pettoyslist {
+    padding: 5px;
+}
+
+.oe_petstore_pettoy {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #F0EEEE;
+}
+
+.oe_field_color_content {
+    height: 20px;
+    width: 50px;
+    border: 1px solid black;
+}

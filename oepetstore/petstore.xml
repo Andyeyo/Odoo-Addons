@@ -28,6 +28,7 @@
             <field name="arch" type="xml">
                 <tree string="Message of the day">
                     <field name="message"/>
+                    <field name="color" widget="color"/>
                 </tree>
             </field>
         </record>
@@ -40,6 +41,9 @@
                 <form string="Message of the day">
                     <group>
                         <field name="message" colspan="4"/>
+                        <field name="color" widget="color"/>
+                        <field name="latitude" type="coordinates"/>
+                        <field name="longitude" type="coordinates"/>
                     </group>
                 </form>
             </field>

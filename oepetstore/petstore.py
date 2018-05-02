@@ -8,6 +8,8 @@ class message_of_the_day(models.Model):
         return {"hello": "world"}
 
     message = fields.Text()
+    latitude = fields.Char(string="Latitude")
+    longitude = fields.Char(string="Longitude")
     color = fields.Char(size=20)
 
 
@@ -15,3 +17,4 @@ class product(models.Model):
     _inherit = "product.product"
 
     max_quantity = fields.Float(string="Maximum Quantity")
+
