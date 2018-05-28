@@ -16,10 +16,13 @@
         </div>
     </t>
     <t t-name="HomePageTemplate">
+        <!--<script t-att-async="async" t-att-defer="defer" t-attf-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjmCL795EQpe5j4rINKdq2rnCnHgt-Fic&amp;libraries=geometry,drawing&amp;callback=initialize"></script>-->
+
         <div style="background-color: powderblue;">This is some simple HTML</div>
-        <!--<div >Hello <t t-esc="name"/> </div>    Es cuando no se ocupa el template-->
-        <div >Hello <t t-esc="widget.name"/> </div>
-        <div><t t-raw="name.link(user_account)"/></div>
+        <div id="main_hello">Hello <t t-esc="name"/> </div>    Es cuando no se ocupa el template
+        <div class="map" style="width:100%; height:100%;  position: absolute;"></div>
+        <!--<div >Hello <t t-esc="widget.name"/> </div>-->
+        <!--<div><t t-raw="name.link(user_account)"/></div>-->
     </t>
     <t t-name="ColorInputWidget">
         <div>
@@ -82,5 +85,8 @@
                 t-attf-src="https://maps.google.com/?ie=UTF8&amp;ll={{latitude}},{{longitude}}&amp;output=embed">
         </iframe>
         <button>Get My Current Coordinate</button>
+    </t>
+    <t t-name="FieldMap">
+        <div class="codup_gmap"></div>
     </t>
 </templates>

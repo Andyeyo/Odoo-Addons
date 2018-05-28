@@ -553,10 +553,7 @@ odoo.define('gpsmaps.gpsmaps', function (require) {
                     mapOptions.center = position;
                 if (iMap != "")
                     mapOptions.mapTypeId = tMap;
-                var div_gmap = this.$el[0];
-                var e = document.getElementsByClassName("o_map_view")
-                console.log(this.$el[0])
-                // console.log(this.$('.o_map_view').map)
+                var div_gmap = this.$(".o_map_view").get(0);
                 map = new google.maps.Map(div_gmap, mapOptions);
                 window.alert("Bien 2");
                 odoo.gpsmaps_var.map = map;

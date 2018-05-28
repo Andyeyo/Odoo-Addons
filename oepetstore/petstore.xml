@@ -4,6 +4,7 @@
         <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/oepetstore/static/src/css/petstore.css"/>
+                 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjmCL795EQpe5j4rINKdq2rnCnHgt-Fic&amp;libraries=drawing&amp;callback=initMap"></script>-->
                 <script type="text/javascript" src="/oepetstore/static/src/js/petstore.js"/>
             </xpath>
         </template>
@@ -29,6 +30,7 @@
                 <tree string="Message of the day">
                     <field name="message"/>
                     <field name="color" widget="color"/>
+                    <field name="longitude" widget="map"/>
                 </tree>
             </field>
         </record>
@@ -43,8 +45,23 @@
                         <field name="message" colspan="4"/>
                         <field name="color" widget="color"/>
                         <field name="latitude" type="coordinates"/>
-                        <field name="longitude" type="coordinates"/>
                     </group>
+                    <group>
+                        <div id="boton" style="text-align: center; display: block; float: right; background-color: lightgray;" >
+                            Borrar geocerca
+                        </div>
+                    </group>
+                    <div id="map2" > MAPA
+                    <field name="longitude" widget="map"/>
+                    </div>
+
+
+                    <!--<script>-->
+                        <!--setTimeout(function(instance)-->
+                        <!--{-->
+                            <!--mapCall("inicio");-->
+                        <!--});-->
+                    <!--</script>-->
                 </form>
             </field>
         </record>

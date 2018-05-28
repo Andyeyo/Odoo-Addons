@@ -10,6 +10,7 @@ odoo.define('oepetstore.petstore', function (require) {
     var utils = require('web.utils');
     var _t = core._t; // Traducciones
     var _lt = core._lt; // Traducciones
+    var form_widgets = require('web.form_widgets');
 
     //Para la busqueda de elementos se puede ocupar this.$el.find("element_name")
     //Para la busqueda de elementos se puede ocupar this.$("element_name")
@@ -19,17 +20,17 @@ odoo.define('oepetstore.petstore', function (require) {
         //template: "HomePageTemplate", // Se puede ocupar en vez del QWeb.render, SE codifica en el init
         className: 'oe_petstore_homepage',
         // template: "HomePage",
-        template: "PetToysList",
+        // template: "PetToysList",
         events: {
           'click .oe_petstore_pettoy': 'selected_item',
         },
 
         //region Description init Function
-        // init: function(parent) {
-        //     this._super(parent); // This command is used to inherit the init method parent
-        //     console.log("Hello JS, I'm inside of init.");
-        //     this.name = "Andres Ramos";
-        // },
+        init: function(parent) {
+            this._super(parent); // This command is used to inherit the init method parent
+            // console.log("Hello JS, I'm inside of init.");
+            // this.name = "Andres Ramos";
+        },
         //endregion
 
         start: function() {
@@ -40,9 +41,26 @@ odoo.define('oepetstore.petstore', function (require) {
             //greeting es el contenido a agregar
             //this.$el donde se va a agregar por lo general al final
             // this.$el.append(QWeb.render("HomePageTemplate"));
-            //var person = prompt("Please enter your name", "Harry Potter");
-            //this.$el.append(QWeb.render("HomePageTemplate", {name: person})); se ocupa sin el template
+            this.$el.append(QWeb.render("HomePageTemplate", {name: "Hola"})); //se ocupa sin el template
 
+            var self = this;
+            if (typeof google== 'undefined') {
+                window.ginit = this.on_ready;
+                $.getScript('http://maps.googleapis.com/maps/api/js?key=AIzaSyDjmCL795EQpe5j4rINKdq2rnCnHgt-Fic&amp&libraries=geometry,drawing&callback=ginit');
+            }
+            else {
+                setTimeout(function () { self.on_ready(); }, 1000);
+            }
+           return this._super();
+
+            // var map = new google.maps.Map(this.$(".map").get(0), {
+            //     center: {lat: -34.397, lng: 150.644},
+            //     zoom: 8
+            // });
+            // window.alert("HOla")
+
+
+            ///////////////////////////////////////////////////////////
             //region Description - ProductsWidget
             // var products = new ProductsWidget(
             //     this, ["cpu", "mouse", "keyboard", "graphic card", "screen"], "#00FF00");
@@ -80,17 +98,60 @@ odoo.define('oepetstore.petstore', function (require) {
             // );
             //endregion   List
 
-            var self = this;
-            return new Model('product.product')
-                .query(['name', 'image'])
-                .filter([['categ_id.name', '=', "Pet Toys"]])
-                .limit(5)
-                .all()
-                .then(function (results) {
-                    _(results).each(function (item) {
-                        self.$el.append(QWeb.render('PetToy', {item: item}));
-                    });
-                });
+            //region Description - Click
+            // var self = this;
+            // return new Model('product.product')
+            //     .query(['name', 'image'])
+            //     .filter([['categ_id.name', '=', "Pet Toys"]])
+            //     .limit(5)
+            //     .all()
+            //     .then(function (results) {
+            //         _(results).each(function (item) {
+            //             self.$el.append(QWeb.render('PetToy', {item: item}));
+            //         });
+            //     });
+            //endregion
+        },
+
+        on_ready: function(){
+
+            // var div_gmap = this.$el[0];
+            var map = new google.maps.Map(this.$(".map").get(0), {
+                center: {lat: -2.0000000, lng: -77.5000000},
+                zoom: 8
+            });
+
+            var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.MARKER,
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [/*'marker',*/ 'circle', 'polygon', 'polyline', 'rectangle']
+                },
+                // markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+                circleOptions: {
+                    fillColor: '#EFF8FB',
+                    // fillOpacity: 1,
+                    strokeWeight: 5,
+                    clickable: false,
+                    editable: true,
+                    zIndex: 1
+                }
+            });
+            drawingManager.setMap(map);
+            google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+                var coordinates = polygon.getPath().getLength();
+                var htmlStr = "";
+                for (var i = 0; i < coordinates; i++) {
+                    console.log(polygon.getPath().getAt(i).toUrlValue(5));
+                }
+                // console.log(coordinates);
+                // console.log(coordinates.scope("closure"))
+            });
+            google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+                alert(circle.getCenter());
+                alert(circle.getRadius());
+            });
         },
 
         selected_item: function (event) {
@@ -102,6 +163,10 @@ odoo.define('oepetstore.petstore', function (require) {
                 views: [[false, 'form']],
             });
         },
+
+        messages_list:function (mensaje) {
+            return mensaje;
+        }
         //region Description - ConfirmWidget
         // user_chose: function(confirm) {
         //     if (confirm) {
@@ -119,6 +184,7 @@ odoo.define('oepetstore.petstore', function (require) {
         //endregion
     });
 
+    //region Description - Widget
     var ProductsWidget = Widget.extend({
         template: "ProductsWidget",
         init: function(parent, products, color) {
@@ -308,6 +374,8 @@ odoo.define('oepetstore.petstore', function (require) {
             });
         },
     });
+    //endregion
+
 
     core.form_widget_registry.add('char2', FieldChar2)
     core.form_widget_registry.add('color', FieldColor)
@@ -316,3 +384,8 @@ odoo.define('oepetstore.petstore', function (require) {
     core.action_registry.add('petstore', homePage);
 
 });
+    function mapCall(mensaje) {
+        var a = new messages_list("HOla");
+
+        alert('Hola')
+    }
