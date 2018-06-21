@@ -94,6 +94,9 @@ odoo.define('oepetstore.FieldMap', function (require) {
                         position: self.marker.getPosition(),
                         zoom: self.map.getZoom()
                     }));
+
+                    // Check the field name $('#name')
+
                     document.getElementById('o_field_input_3').value = self.marker.getPosition().lat();
                     document.getElementById('o_field_input_4').value = self.marker.getPosition().lng();
                 }

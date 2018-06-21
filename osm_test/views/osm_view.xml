@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="osm_tree">
+            <field name="name">osm</field>
+            <field name="model">osm.test</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Message of the day">
+                    <field name="longitude" digits="(4,6)"/>
+                    <field name="latitude" digits="(4,6)"/>
+                    <field name="map"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="osm_form">
+            <field name="name">osm</field>
+            <field name="model">osm.test</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Message of the day">
+                    <group>
+                        <field name="longitude" digits="(4,6)"/>
+                        <field name="latitude" digits="(4,6)"/>
+                    </group>
+                    <group>
+                         <separator align="Center" string="OSM Maps" colspan="2" />
+                        <div id="map">
+                            <field name="map" nolabel="1" widget="osm_map" style="width: 400px; height: 400px"/>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="osm_action">
+            <field name="name">Osm</field>
+            <field name="res_model">osm.test</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="osm_set" name="Message of the day"
+                  action="osm_action" string="OSM"/>
+    </data>
+</odoo>

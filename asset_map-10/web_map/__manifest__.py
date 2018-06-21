@@ -26,7 +26,7 @@ Support following feature:
     'sequence': 0,
     'depends': ['base_setup','web'],
     'data': [
-        'views/web_map_templates.xml',
+        # 'views/web_map_templates.xml',
         'views/res_config_views.xml',
     ],
     'qweb': [
