@@ -141,13 +141,13 @@ odoo.define('osm_widget.OsmMap', function (require) {
                         var list = document.getElementsByClassName("o_form_label");
                         if (list.length > 0) {
                             for (var i = 0; i < list.length; i++) {
-                                if (list[i].outerText == 'Longitude') {
+                                if (list[i].outerText == 'Longitude' || list[i].outerText == 'Longitud') {
                                     var lng = layer.getLatLng().lng.toString();
                                     lng = lng.replace(".", ",");
                                     list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lng;
                                 }
 
-                                else if (list[i].outerText == 'Latitude') {
+                                else if (list[i].outerText == 'Latitude' || list[i].outerText == 'Latitud') {
                                     var lat = layer.getLatLng().lat.toString();
                                     lat = lat.replace(".", ",");
                                     list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lat;
@@ -210,13 +210,13 @@ odoo.define('osm_widget.OsmMap', function (require) {
                             var list = document.getElementsByClassName("o_form_label");
                             if (list.length > 0) {
                                 for (var i = 0; i < list.length; i++) {
-                                    if (list[i].outerText == 'Longitude') {
+                                    if (list[i].outerText == 'Longitude' || list[i].outerText == 'Longitud') {
                                         var lng = layer.getLatLng().lng.toString();
                                         lng = lng.replace(".", ",");
                                         list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lng;
                                     }
 
-                                    else if (list[i].outerText == 'Latitude') {
+                                    else if (list[i].outerText == 'Latitude' || list[i].outerText == 'Latitud') {
                                         var lat = layer.getLatLng().lat.toString();
                                         lat = lat.replace(".", ",");
                                         list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lat;
