@@ -3,6 +3,8 @@ odoo.define('osm_widget.OsmMap', function (require) {
 
     var core = require('web.core');
     var form_common = require('web.form_common');
+    var Model = require('web.DataModel');
+    var decimal;
 
     var OsmMap = form_common.AbstractField.extend({
             template: 'OsmMap',
@@ -11,9 +13,23 @@ odoo.define('osm_widget.OsmMap', function (require) {
 
                 var self = this;
 
+                var result = new Model('res.lang')
+                    .query(['decimal_point'])
+                    .filter([['code', '=', self.session.user_context.lang]])
+                    .limit(1)
+                    .all()
+                    .done(function (result) {
+                        decimal = result[0].decimal_point;
+                    })
+                    .fail(function (result) {
+                        alert(result);
+                    });
+
+                this.decimal = null;
+
                 this.map = L.map(this.el).setView([-1.219762, -78.594042], 14);
 
-                var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+                var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap by Andrés Ramos</a>';
 
                 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: 'Map data &copy; ' + mapLink,
@@ -136,20 +152,22 @@ odoo.define('osm_widget.OsmMap', function (require) {
                     layer.addTo(self.drawnItems);
                     this.removeControl(self.drawControl)
                     this.addControl(self.drawControlEditOnly);
-                    if (e.layerType === 'marker') {
 
+                    if (e.layerType === 'marker') {
                         var list = document.getElementsByClassName("o_form_label");
                         if (list.length > 0) {
                             for (var i = 0; i < list.length; i++) {
                                 if (list[i].outerText == 'Longitude' || list[i].outerText == 'Longitud') {
                                     var lng = layer.getLatLng().lng.toString();
-                                    lng = lng.replace(".", ",");
+                                    if (!(decimal == null))
+                                        lng = lng.replace(".", decimal);
                                     list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lng;
                                 }
 
                                 else if (list[i].outerText == 'Latitude' || list[i].outerText == 'Latitud') {
                                     var lat = layer.getLatLng().lat.toString();
-                                    lat = lat.replace(".", ",");
+                                    if (!(decimal == null))
+                                        lat = lat.replace(".", decimal);
                                     list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lat;
                                 }
                             }
@@ -201,6 +219,21 @@ odoo.define('osm_widget.OsmMap', function (require) {
                 this.map.on("draw:deleted", function (e) {
                     this.removeControl(self.drawControlEditOnly)
                     this.addControl(self.drawControl);
+                    var list = document.getElementsByClassName("o_form_label");
+                    if (list.length > 0) {
+                        for (var i = 0; i < list.length; i++) {
+                            if (list[i].outerText == 'Longitude' || list[i].outerText == 'Longitud') {
+                                var lng = "0" + decimal + "000000";
+                                list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lng;
+                            }
+
+                            else if (list[i].outerText == 'Latitude' || list[i].outerText == 'Latitud') {
+                                var lat = "0" + decimal + "000000";
+                                list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lat;
+                            }
+                        }
+                    }
+                    self.internal_set_value("");
                 });
 
                 this.map.on('draw:edited', function (e) {
@@ -212,13 +245,15 @@ odoo.define('osm_widget.OsmMap', function (require) {
                                 for (var i = 0; i < list.length; i++) {
                                     if (list[i].outerText == 'Longitude' || list[i].outerText == 'Longitud') {
                                         var lng = layer.getLatLng().lng.toString();
-                                        lng = lng.replace(".", ",");
+                                        if (!(decimal == null))
+                                            lng = lng.replace(".", decimal);
                                         list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lng;
                                     }
 
                                     else if (list[i].outerText == 'Latitude' || list[i].outerText == 'Latitud') {
                                         var lat = layer.getLatLng().lat.toString();
-                                        lat = lat.replace(".", ",");
+                                        if (!(decimal == null))
+                                            lat = lat.replace(".", decimal);
                                         list[i].parentElement.parentElement.lastElementChild.firstElementChild.value = lat;
                                     }
                                 }
