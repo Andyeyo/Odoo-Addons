@@ -1,0 +1,6 @@
+.o_list_view  td, .o_list_view th {
+  white-space: nowrap;
+}
+.o_list_view  > tbody > tr > td.o_handle_cell {
+  white-space: nowrap;
+
