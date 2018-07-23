@@ -7,7 +7,7 @@
     'category': 'Tools',
     'version': '10.0',
     'website': 'http://www.yunaio.com',
-    'author': 'Jodoo',
+    'author': 'Andres Ramos <andres.ramos@mivilsoft.com>',
     'depends': ['base'],
     'data': [
         'views/webclient_templates.xml',
