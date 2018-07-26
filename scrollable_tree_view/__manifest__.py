@@ -6,7 +6,7 @@
     'summary': 'This module provides feature for Odoo tree view horizontal scrollable.',
     'category': 'Tools',
     'version': '10.0',
-    'website': 'http://www.yunaio.com',
+    'website': 'https://www.mivilsoft.com',
     'author': 'Andres Ramos <andres.ramos@mivilsoft.com>',
     'depends': ['base'],
     'data': [
