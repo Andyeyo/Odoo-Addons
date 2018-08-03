@@ -6,10 +6,10 @@ odoo.define('web_widget_timepicker', function (require) {
     var common = require('web.form_common');
 
     var TimePickerField = common.AbstractField.extend(common.ReinitializeFieldMixin, {
-        // is_field_number: true,
+        is_field_number: true,
         template: "TimePickerField",
-        // internal_format: 'float_time',
-        // widget_class: 'o_form_field_time',
+        internal_format: 'float_time',
+        widget_class: 'o_form_field_time',
         events: {
             'change input': 'store_dom_value',
         },
@@ -28,8 +28,8 @@ odoo.define('web_widget_timepicker', function (require) {
         initialize_content: function() {
             if(!this.get("effective_readonly")) {
                 this.$el.find('input').timepicker(this.options);
+                this.setupFocus(this.$('input'));
             }
-            this.setupFocus(this.$('input'));
         },
         is_syntax_valid: function() {
             if (!this.get("effective_readonly") && this.$("input").size() > 0) {
@@ -70,16 +70,15 @@ odoo.define('web_widget_timepicker', function (require) {
             return formats.format_value(val, {"widget": this.internal_format}, def);
         },
         render_value: function() {
-        var show_value = this.format_value(this.get('value'), '');
-        if (this.$input) {
-            this.$input.val(show_value);
-        } else {
-            if (this.password) {
-                show_value = new Array(show_value.length + 1).join('*');
+            var show_value = this.format_value(this.get('value'), '');
+
+            if (!this.get("effective_readonly")) {
+                this.$input = this.$el.find('input');
+                this.$input.val(show_value);
+            } else {
+                this.$(".o_form_time_content").text(show_value);
             }
-            this.$el.text(show_value);
-        }
-    },
+        },
     });
 
     core.form_widget_registry.add('timepicker', TimePickerField);
