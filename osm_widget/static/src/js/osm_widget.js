@@ -328,6 +328,7 @@ odoo.define('osm_widget.OsmMap', function (require) {
 
             render_value: function () {
                 if (this.get_value()) {
+                    window.dispatchEvent(new Event('resize'));
                     if (this.drawControl._map) {
                         this.map.removeControl(this.drawControl);
                     }
@@ -377,6 +378,7 @@ odoo.define('osm_widget.OsmMap', function (require) {
             },
 
             update_mode: function () {
+                window.dispatchEvent(new Event('resize'));
                 if (!this.get("effective_readonly") && this.get_value()) {
                     this.map.addControl(this.drawControlEditOnly);
                 } else if (this.drawControlEditOnly._map) {
