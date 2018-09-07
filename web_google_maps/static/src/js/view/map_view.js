@@ -3,16 +3,20 @@ odoo.define('web.MapView', function (require) {
 
     var core = require('web.core');
     var ajax = require('web.ajax');
+    var data = require('web.data');
+    var data_manager = require('web.data_manager');
     var View = require('web.View');
-    var pyeval = require('web.pyeval');
+    var Dialog = require('web.Dialog');
     var session = require('web.session');
-    var Widget = require('web.Widget');
-    var Model = require('web.Model');
     var QWeb = require('web.QWeb');
+    var Pager = require('web.Pager');
     var utils = require('web.utils');
+    var MapControls = require('web_google_maps.MapsControls');
 
     var MapViewPlacesAutocomplete = require('web.MapViewPlacesAutocomplete');
-    var MapRecord = require('web_google_maps.Record');
+    var KanbanRecord = require('web_kanban.Record');
+    var kanban_widgets = require('web_kanban.widgets');
+    var fields_registry = kanban_widgets.registry;
 
     var qweb = core.qweb;
     var _lt = core._lt;
@@ -806,59 +810,77 @@ odoo.define('web.MapView', function (require) {
     var MapView = View.extend({
         template: 'MapView',
         accesskey: "m",
-        className: 'o_map',
+        className: 'o_map_view',
         display_name: _lt('Map'),
         defaults: _.extend(View.prototype.defaults, {
-            // records can be selected one by one
-            selectable: true,
-            // whether the column headers should be displayed
-            header: true,
-            action_buttons: true,
-            searchable: true,
+            quick_creatable: true,
+            creatable: true,
+            create_text: undefined,
+            read_only_mode: false,
+            confirm_on_delete: true,
         }),
         icon: 'fa-map-o',
         mobile_friendly: true,
         custom_events: {
-            'map_record_open': 'switch_form_view'
+            'kanban_record_open': 'open_record',
+            'kanban_record_edit': 'edit_record',
+            'kanban_record_delete': 'delete_record',
+            'kanban_record_update': 'update_record',
+            'kanban_do_action': 'open_action',
+            'kanban_column_archive_records': 'archive_records',
+            'kanban_call_method': 'call_method',
         },
         init: function () {
             this._super.apply(this, arguments);
             this.qweb = new QWeb(session.debug, {
                 _s: session.origin
-            });
+            }, false);
             this.markers = [];
             this.map = false;
             this.shown = $.Deferred();
+            this.data = undefined;
+            this.limit = this.options.limit || parseInt(this.fields_view.arch.attrs.limit, 10) || 40;
+            this.default_group_by = this.fields_view.arch.attrs.default_group_by;
             this.fields = this.fields_view.fields;
+            this.fields_keys = _.keys(this.fields_view.fields);
             this.children_field = this.fields_view.field_parent;
             this.geocoder = new google.maps.Geocoder;
+            this.search_orderer = new utils.DropMisordered();
             // Retrieve many2manys stored in the fields_view if it has already been processed
             this.many2manys = this.fields_view.many2manys || [];
             this.m2m_context = {};
+            this.widgets = [];
+        },
+        init_map: function () {
+            this.map = new google.maps.Map(this.$('.o_map_view').get(0), {
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoom: 3,
+                minZoom: 3,
+                maxZoom: 20,
+                fullscreenControl: true,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain'],
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                    position: google.maps.ControlPosition.TOP_CENTER
+                }
+            });
+            this.set_map_theme();
+            this.marker_cluster = new MarkerClusterer(this.map, [], {
+                imagePath: '/web_google_maps/static/src/img/m',
+                gridSize: 20,
+                maxZoom: 17
+            });
+            this.on_maps_add_controls();
         },
         start: function () {
-            var self = this;
-            this.record_options = {
-                editable: false,
-                deletable: false,
-                fields: this.fields_view.fields,
-                qweb: this.qweb,
-                model: this.model,
-                read_only_mode: this.options.read_only_mode,
-            };
-            this.shown.done(this.proxy('_init_start'));
+            this.init_map();
             return this._super();
         },
-        _init_start: function () {
-            this.init_map();
-            this.on_load_markers();
-            return $.when();
-        },
         willStart: function () {
-            this.set_geolocation_fields();
-            this.set_marker_title();
-            this.set_marker_colors();
             this.get_marker_iw_template();
+            this.set_geolocation_fields();
+            this.set_marker_colors();
             return this._super();
         },
         /**
@@ -894,6 +916,7 @@ odoo.define('web.MapView', function (require) {
         },
         /**
          * This method is adopted from kanban view
+         * to manage marker info window
          */
         get_marker_iw_template: function () {
             var child;
@@ -920,15 +943,6 @@ odoo.define('web.MapView', function (require) {
             } else {
                 this.do_warn(_t('Error: cannot display locations'), _t('Please define alias name for geolocations fields for map view!'));
                 return false;
-            }
-        },
-        set_marker_title: function () {
-            if (this.fields_view.arch.attrs.title) {
-                var title = this.fields_view.arch.attrs.title;
-                if (!this.fields.hasOwnProperty(title)) {
-                    this.do_warn(_t('Map View Attributes'), _t('The field for marker title needs to be loaded into view!'));
-                }
-                this.marker_title = title;
             }
         },
         set_marker_colors: function () {
@@ -969,30 +983,82 @@ odoo.define('web.MapView', function (require) {
             }
             return '';
         },
-        on_load_markers: function () {
+        load_markers: function () {
             var self = this;
-            this.load_markers().done(function () {
+            var latLng;
+
+            this.clear_markers_cluster();
+            if (this.data.is_empty) {
+                this.do_notify(_t('No geolocation is found!'));
+                return false;
+            }
+
+            return $.when(this.data.records.forEach(function (record) {
+                if (record[self.latitude] && record[self.longitude]) {
+                    latLng = new google.maps.LatLng(record[self.latitude], record[self.longitude]);
+                    self._create_marker(latLng, record);
+                };
+            })).then(function () {
                 self.map_centered();
             });
         },
-        load_markers: function () {
-            var self = this,
-                latLng;
-
+        load_records: function (offset, dataset) {
+            var options = {
+                'limit': this.limit,
+                'offset': offset
+            };
+            dataset = dataset || this.dataset;
             this.infowindow = new google.maps.InfoWindow();
-            return $.when(this.dataset.read_slice(this.fields_list()).done(function (records) {
-                self.clear_marker_clusterer();
-                if (!records.length) {
-                    self.do_notify(_t('No geolocation is found!'));
-                    return false;
-                }
-                _.each(records, function (record) {
-                    if (record[self.latitude] && record[self.longitude]) {
-                        latLng = new google.maps.LatLng(record[self.latitude], record[self.longitude]);
-                        self._create_marker(latLng, record);
+            return dataset.read_slice(this.fields_keys.concat(['__last_update']), options)
+                .then(function (records) {
+                    return {
+                        records: records,
+                        is_empty: !records.length,
+                        grouped: false, // this moment, grouped will not be applied on this view.
                     };
                 });
-            }));
+        },
+        render_pager: function ($node, options) {
+            var self = this;
+            this.pager = new Pager(this, this.dataset.size(), 1, this.limit, options);
+            this.pager.appendTo($node);
+            this.pager.on('pager_changed', this, function (state) {
+                self.limit = state.limit;
+                self.load_records(state.current_min - 1)
+                    .then(function (data) {
+                        self.data = data;
+                    })
+                    .done(this.proxy('render'));
+            });
+            this.update_pager();
+        },
+        render: function () {
+            this.record_options = {
+                editable: this.is_action_enabled('edit'),
+                deletable: this.is_action_enabled('delete'),
+                fields: this.fields_view.fields,
+                qweb: this.qweb,
+                model: this.model,
+                read_only_mode: this.options.read_only_mode,
+            };
+            this.load_markers();
+        },
+        update_pager: function () {
+            if (this.pager) {
+                this.pager.update_state({
+                    size: this.dataset.size(),
+                    current_min: 1
+                });
+            }
+        },
+        is_action_enabled: function (action) {
+            if (action === 'create' && !this.options.creatable) {
+                return false;
+            }
+            return this._super(action);
+        },
+        has_active_field: function () {
+            return this.fields_view.fields.active;
         },
         _get_icon_color: function (record) {
             if (this.color) {
@@ -1001,79 +1067,138 @@ odoo.define('web.MapView', function (require) {
             return this.get_marker_color(record);
         },
         _create_marker: function (lat_lng, record) {
-            var options = '',
-                icon_url = '/web_google_maps/static/src/img/markers/',
-                icon_color = '',
-                marker = '';
-
-            options = {
+            var icon_url = '/web_google_maps/static/src/img/markers/';
+            var options = {
                 position: lat_lng,
                 map: this.map,
-                animation: google.maps.Animation.DROP
+                animation: google.maps.Animation.DROP,
+                _odoo_record: record
             }
-            icon_color = this._get_icon_color(record);
+            var icon_color = this._get_icon_color(record);
             if (icon_color && MARKER_ICON_COLORS.indexOf(icon_color) !== -1) {
                 options.icon = icon_url + icon_color + '.png';
             }
-            marker = new google.maps.Marker(options);
+            var marker = new google.maps.Marker(options);
             this.markers.push(marker);
-            this.set_marker(marker, record);
+            this.cluster_add_marker(marker);
         },
-        clear_marker_clusterer: function () {
+        clear_markers_cluster: function () {
             this.marker_cluster.clearMarkers();
             this.markers.length = 0;
         },
-        set_marker: function (marker, record) {
-            this.marker_cluster.addMarker(marker);
-            google.maps.event.addListener(marker, 'click', this.marker_infowindow(marker, record));
-        },
-        marker_infowindow: function (marker, record) {
-            var self = this;
-            var content = self.marker_infowindow_content(record);
-            return function () {
-                self.infowindow.setContent(content);
-                self.infowindow.open(self.map, marker);
+        /**
+         * Handle Multiple Markers present at the same coordinates
+         */
+        cluster_add_marker: function (marker) {
+            var markerInClusters = this.marker_cluster.getMarkers();
+            var existing_records = [];
+            if (markerInClusters.length > 0) {
+                markerInClusters.forEach(function (_cMarker) {
+                    var _position = _cMarker.getPosition();
+                    if (marker.getPosition().equals(_position)) {
+                        existing_records.push(_cMarker._odoo_record);
+                    }
+                });
             }
+            this.marker_cluster.addMarker(marker);
+            google.maps.event.addListener(marker, 'click', this.marker_infowindow.bind(this, marker, existing_records));
+        },
+        marker_infowindow: function (marker, current_records) {
+            var self = this;
+            var _content = '';
+            var marker_records = [];
+
+            var marker_content = document.createElement('div');
+            marker_content.className = 'o_kanban_view o_kanban_grouped';
+
+            var content_body = document.createElement('div');
+            content_body.className = 'o_kanban_group';
+
+            if (current_records.length > 0) {
+                current_records.forEach(function (_record) {
+                    _content = self.marker_infowindow_content(_record);
+                    marker_records.push(_content);
+                    _content.appendTo(content_body);
+                });
+            }
+
+            var marker_record = self.marker_infowindow_content(marker._odoo_record);
+            marker_record.appendTo(content_body);
+            marker_records.push(marker_record);
+
+            marker_content.appendChild(content_body);
+
+            this.infowindow.setContent(marker_content);
+            this.infowindow.open(this.map, marker);
+            this.postprocess_m2m_tags(marker_records);
         },
         marker_infowindow_content: function (record) {
-            var element, options, marker_record;
-            element = document.createElement('div');
-            options = _.clone(this.record_options);
-            marker_record = new MapRecord(this, record, options);
-            marker_record.appendTo(element);
-            return element;
+            var options = _.clone(this.record_options);
+            var marker_record = new KanbanRecord(this, record, options);
+            return marker_record;
         },
-        init_map: function () {
-            this.map = new google.maps.Map(this.$('.o_map_view').get(0), {
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                zoom: 3,
-                minZoom: 3,
-                maxZoom: 20,
-                fullscreenControl: true,
-                mapTypeControl: true,
-                mapTypeControlOptions: {
-                    mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain'],
-                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                    position: google.maps.ControlPosition.TOP_CENTER
-                }
-            });
-            this.set_map_theme();
-            this.marker_cluster = new MarkerClusterer(this.map, [], {
-                imagePath: '/web_google_maps/static/src/img/m'
-            });
-            this.on_maps_add_controls();
-        },
-        fields_list: function () {
-            var fields = _.keys(this.fields);
-            if (!_(fields).contains(this.children_field)) {
-                fields.push(this.children_field);
+        postprocess_m2m_tags: function (records) {
+            var self = this;
+            if (!this.many2manys.length) {
+                return;
             }
-            return _.filter(fields);
+            var relations = {};
+            records = records ? (records instanceof Array ? records : [records]) :
+                this.grouped ? Array.prototype.concat.apply([], _.pluck(this.widgets, 'records')) :
+                this.widgets;
+
+            records.forEach(function (record) {
+                self.many2manys.forEach(function (name) {
+                    var field = record.record[name];
+                    var $el = record.$('.oe_form_field.o_form_field_many2manytags[name=' + name + ']').empty();
+                    // fields declared in the kanban view may not be used directly
+                    // in the template declaration, for example fields for which the
+                    // raw value is used -> $el[0] is undefined, leading to errors
+                    // in the following process. Preventing to add push the id here
+                    // prevents to make unnecessary calls to name_get
+                    if (!$el[0]) {
+                        return;
+                    }
+                    if (!relations[field.relation]) {
+                        relations[field.relation] = {
+                            ids: [],
+                            elements: {},
+                            context: self.m2m_context[name]
+                        };
+                    }
+                    var rel = relations[field.relation];
+                    field.raw_value.forEach(function (id) {
+                        rel.ids.push(id);
+                        if (!rel.elements[id]) {
+                            rel.elements[id] = [];
+                        }
+                        rel.elements[id].push($el[0]);
+                    });
+                });
+            });
+            _.each(relations, function (rel, rel_name) {
+                var dataset = new data.DataSetSearch(self, rel_name, self.dataset.get_context(rel.context));
+                dataset.read_ids(_.uniq(rel.ids), ['name', 'color']).done(function (result) {
+                    result.forEach(function (record) {
+                        // Does not display the tag if color = 10
+                        if (typeof record.color !== 'undefined' && record.color != 10) {
+                            var $tag = $('<span>')
+                                .addClass('o_tag o_tag_color_' + record.color)
+                                .attr('title', _.str.escapeHTML(record.name));
+                            $(rel.elements[record.id]).append($tag);
+                        }
+                    });
+                    // we use boostrap tooltips for better and faster display
+                    self.$('span.o_tag').tooltip({
+                        delay: {
+                            'show': 50
+                        }
+                    });
+                });
+            });
         },
         map_centered: function () {
-            var self = this,
-                context = this.dataset.context;
-
+            var context = this.dataset.context;
             if (context.route_direction) {
                 this.on_init_routes();
             } else {
@@ -1096,17 +1221,52 @@ odoo.define('web.MapView', function (require) {
         do_show: function () {
             this.do_push_state({});
             this.shown.resolve();
-            return this._super.apply(this, arguments);
+            return this._super();
         },
+        do_reload: function () {
+            this.do_search(this.search_domain, this.search_context, []);
+        },
+        /**
+         * Grouping records on maps is not supported yet
+         */
         do_search: function (domain, context, group_by) {
-            var self = this,
-                _super = this._super,
-                _args = arguments;
-
-            this.shown.done(function () {
-                _super.apply(self, _args);
-                self.on_load_markers();
+            var self = this;
+            var group_by_field = group_by[0] || this.default_group_by;
+            var field = this.fields[group_by_field];
+            var options = {};
+            var fields_def;
+            if (field === undefined) {
+                fields_def = data_manager.load_fields(this.dataset).then(function (fields) {
+                    self.fields = fields;
+                    field = self.fields[group_by_field];
+                });
+            }
+            var load_def = $.when(fields_def).then(function () {
+                var grouped_by_m2o = field && (field.type === 'many2one');
+                options = _.extend(options, {
+                    search_domain: domain,
+                    search_context: context,
+                    group_by_field: group_by_field,
+                    grouped: false,
+                    grouped_by_m2o: grouped_by_m2o,
+                    relation: (grouped_by_m2o ? field.relation : undefined),
+                });
+                return self.load_records();
             });
+            return this.search_orderer
+                .add(load_def)
+                .then(function (data) {
+                    _.extend(self, options);
+                    if (options.grouped) {
+                        var new_ids = _.union.apply(null, _.map(data.groups, function (group) {
+                            return group.dataset.ids;
+                        }));
+                        self.dataset.alter_ids(new_ids);
+                    }
+                    self.data = data;
+                })
+                .then(this.proxy('render'))
+                .then(this.proxy('update_pager'));
         },
         on_maps_add_controls: function () {
             this.map_layer_traffic_controls();
@@ -1118,14 +1278,14 @@ odoo.define('web.MapView', function (require) {
          */
         map_layer_traffic_controls: function () {
             var route_mode = this.dataset.context.route_direction ? true : false;
-            var map_controls = new MapControl(this, route_mode);
+            var map_controls = new MapControls.MapControl(this, route_mode);
             map_controls.setElement($(qweb.render('MapViewControl', {})));
             map_controls.start();
         },
         /**
          * The three keys('model', 'method', 'fields') in the object assigned to variable 'options' is a mandatory keys.
          * The idea is to be able to pass any 'object' that can be created within the map
-         *  
+         *
          * The fields options is divided into three parts:
          * 1) 'general'
          *     This configuration is for 'general' fields of the object, fields like name, phone, etc..
@@ -1206,9 +1366,8 @@ odoo.define('web.MapView', function (require) {
             });
         },
         get_routes_distance: function (route) {
-            var content = "",
-                i;
-            for (i = 0; i < route.legs.length; i++) {
+            var content = '';
+            for (var i = 0; i < route.legs.length; i++) {
                 content += '<strong>' + route.legs[i].start_address + '</strong> &#8594;';
                 content += ' <strong>' + route.legs[i].end_address + '</strong>';
                 content += '<p>' + route.legs[i].distance.text + '</p>';
@@ -1347,11 +1506,7 @@ odoo.define('web.MapView', function (require) {
             this.$('.btn_map_control').toggleClass('opened');
         },
         reload: function () {
-            var self = this;
-            setTimeout(function () {
-                self.on_load_markers();
-            }, 1000);
-            return $.when();
+            this.load_markers();
         },
         render_buttons: function ($node) {
             var self = this;
@@ -1371,132 +1526,110 @@ odoo.define('web.MapView', function (require) {
             });
             this.$buttons.appendTo($node);
         },
-        switch_form_view: function (event, options) {
+        add_record: function () {
+            this.dataset.index = null;
+            this.do_switch_view('form');
+        },
+
+        open_record: function (event, options) {
             if (this.dataset.select_id(event.data.id)) {
                 this.do_switch_view('form', options);
             } else {
-                this.do_warn("Map: could not find id#" + event.data.id);
+                this.do_warn("Kanban: could not find id#" + event.data.id);
             }
-        }
-    });
+        },
 
-    var MapControl = Widget.extend({
-        events: {
-            'click .btn_map_control': 'on_control_maps'
+        edit_record: function (event) {
+            this.open_record(event, {
+                mode: 'edit'
+            });
         },
-        init: function (parent, route) {
-            this._super.apply(this, arguments);
-            this.parent = parent;
-            this.route = route;
-        },
-        _init_controls: function () {
-            this.parent.map.controls[google.maps.ControlPosition.LEFT_TOP].push(this.$el.get(0));
-        },
-        start: function () {
+
+        delete_record: function (event) {
             var self = this;
+            var record = event.data.record;
 
-            this.parent.shown.done(this.proxy('_init_controls'));
-
-            var map_layers = new MapControlLayer(this.parent);
-            map_layers.setElement($(qweb.render('MapControlLayers', {})));
-            map_layers.start();
-
-            if (this.route) {
-                var map_routes = new MapControlTravelMode(this.parent);
-                map_routes.setElement($(qweb.render('MapControlTravelMode', {})));
-                map_routes.start();
+            function do_it() {
+                return $.when(self.dataset.unlink([record.id])).done(function () {
+                    record.destroy();
+                    if (event.data.after) {
+                        event.data.after();
+                    }
+                    self.do_reload();
+                });
+            }
+            if (this.options.confirm_on_delete) {
+                Dialog.confirm(this, _t("Are you sure you want to delete this record ?"), {
+                    confirm_callback: do_it
+                });
+            } else {
+                do_it();
             }
         },
-        on_control_maps: function () {
-            this.parent.on_toogle_sidenav();
+
+        update_record: function (event) {
+            var self = this;
+            var record = event.target;
+            return this.dataset.write(record.id, event.data)
+                .done(function () {
+                    if (!self.isDestroyed()) {
+                        self.reload_record(record);
+                    }
+                });
+        },
+
+        open_action: function (event) {
+            var self = this;
+            if (event.data.context) {
+                event.data.context = new data.CompoundContext(event.data.context)
+                    .set_eval_context({
+                        active_id: event.target.id,
+                        active_ids: [event.target.id],
+                        active_model: this.model,
+                    });
+            }
+            this.do_execute_action(event.data, this.dataset, event.target.id, _.bind(self.reload_record, this, event.target));
+        },
+
+        reload_record: function (record) {
+            var self = this;
+            this.dataset.read_ids([record.id], this.fields_keys.concat(['__last_update'])).done(function (records) {
+                if (records.length) {
+                    record.update(records[0]);
+                    self.postprocess_m2m_tags(record);
+                } else {
+                    record.destroy();
+                }
+            });
+        },
+
+        archive_records: function (event) {
+            if (!this.has_active_field()) {
+                return;
+            }
+            var active_value = !event.data.archive;
+            var record_ids = [];
+            _.each(event.target.records, function (kanban_record) {
+                if (kanban_record.record.active.value != active_value) {
+                    record_ids.push(kanban_record.id);
+                }
+            });
+            if (record_ids.length) {
+                this.dataset.call('write', [record_ids, {
+                        active: active_value
+                    }])
+                    .done(this.do_reload);
+            }
+        },
+
+        call_method: function (event) {
+            var data = event.data;
+            this.dataset.call(data.method, data.params).then(function () {
+                if (data.callback) {
+                    data.callback();
+                }
+            });
         }
-    });
-
-    var MapControlLayer = Widget.extend({
-        events: {
-            'click #map_layer': 'on_change_layer',
-        },
-        init: function (parent) {
-            this._super.apply(this, arguments);
-            this.parent = parent;
-        },
-        start: function () {
-            this.parent.$('.sidenav-body>#accordion').append(this.$el);
-        },
-        on_change_layer: function (ev) {
-            ev.preventDefault();
-            var layer = $(ev.currentTarget).data('layer');
-            if (layer == 'traffic') {
-                this._on_traffic_layer(ev);
-            } else if (layer == 'transit') {
-                this._on_transit_layer(ev);
-            } else if (layer == 'bicycle') {
-                this._on_bicycle_layer(ev);
-            }
-        },
-        _on_traffic_layer: function (ev) {
-            $(ev.currentTarget).toggleClass('active');
-            if ($(ev.currentTarget).hasClass('active')) {
-                this.trafficLayer = new google.maps.TrafficLayer();
-                this.trafficLayer.setMap(this.parent.map);
-            } else {
-                this.trafficLayer.setMap(null);
-            }
-        },
-        _on_transit_layer: function (ev) {
-            $(ev.currentTarget).toggleClass('active');
-            if ($(ev.currentTarget).hasClass('active')) {
-                this.transitLayer = new google.maps.TransitLayer();
-                this.transitLayer.setMap(this.parent.map);
-            } else {
-                this.transitLayer.setMap(null);
-            }
-        },
-        _on_bicycle_layer: function (ev) {
-            $(ev.currentTarget).toggleClass('active');
-            if ($(ev.currentTarget).hasClass('active')) {
-                this.bikeLayer = new google.maps.BicyclingLayer();
-                this.bikeLayer.setMap(this.parent.map);
-            } else {
-                this.bikeLayer.setMap(null);
-            }
-        },
-        destroy: function () {
-            if (this.transitLayer) {
-                this.transitLayer.setMap(null);
-            }
-
-            if (this.bikeLayer) {
-                this.bikeLayer.setMap(null);
-            }
-
-            if (this.trafficLayer) {
-                this.trafficLayer.setMap(null);
-            }
-
-            this._super.apply(this, arguments);
-        }
-
-    });
-
-    var MapControlTravelMode = Widget.extend({
-        events: {
-            'click #travel_mode': 'on_change_mode'
-        },
-        init: function (parent) {
-            this._super.apply(this, arguments);
-            this.parent = parent;
-        },
-        start: function () {
-            this.parent.$('.sidenav-body > #accordion').append(this.$el);
-        },
-        on_change_mode: function (ev) {
-            ev.preventDefault();
-            $(ev.currentTarget).siblings().removeClass('active');
-            $(ev.currentTarget).toggleClass('active');
-            var mode = $(ev.currentTarget).data('mode');
-            this.parent.on_calculate_and_display_route(mode);
-        },
     });
 
     // The two functions below are adopted from kanban view
@@ -1513,19 +1646,19 @@ odoo.define('web.MapView', function (require) {
         if (node.tag && node.attrs.modifiers) {
             var modifiers = JSON.parse(node.attrs.modifiers || '{}');
             if (modifiers.invisible) {
-                qweb_add_if(node, _.str.sprintf("!map_compute_domain(%s)", JSON.stringify(modifiers.invisible)));
+                qweb_add_if(node, _.str.sprintf("!kanban_compute_domain(%s)", JSON.stringify(modifiers.invisible)));
             }
         }
         switch (node.tag) {
             case 'field':
                 var ftype = fvg.fields[node.attrs.name].type;
                 ftype = node.attrs.widget ? node.attrs.widget : ftype;
-                if (ftype === 'many2many') {
+                if (fvg.fields[node.attrs.name].type === 'many2many') {
                     if (_.indexOf(many2manys, node.attrs.name) < 0) {
                         many2manys.push(node.attrs.name);
                     }
                     node.tag = 'div';
-                    node.attrs['class'] = (node.attrs['class'] || '') + ' oe_form_field o_form_field_many2manytags o_map_tags';
+                    node.attrs['class'] = (node.attrs['class'] || '') + ' oe_form_field o_form_field_many2manytags o_kanban_tags';
                 } else if (fields_registry.contains(ftype)) {
                     // do nothing, the kanban record will handle it
                 } else {
@@ -1536,9 +1669,9 @@ odoo.define('web.MapView', function (require) {
             case 'button':
             case 'a':
                 var type = node.attrs.type || '';
-                if (_.indexOf('action,object,edit,open,delete,url'.split(','), type) !== -1) {
+                if (_.indexOf('action,object,edit,open,delete,url,set_cover'.split(','), type) !== -1) {
                     _.each(node.attrs, function (v, k) {
-                        if (_.indexOf('icon,type,name,args,string,context,states'.split(','), k) != -1) {
+                        if (_.indexOf('icon,type,name,args,string,context,states,kanban_states'.split(','), k) != -1) {
                             node.attrs['data-' + k] = v;
                             delete(node.attrs[k]);
                         }
@@ -1552,7 +1685,7 @@ odoo.define('web.MapView', function (require) {
                         node.attrs.type = 'button';
                     }
 
-                    var action_classes = " oe_map_action oe_map_action_" + node.tag;
+                    var action_classes = " oe_kanban_action oe_kanban_action_" + node.tag;
                     if (node.attrs['t-attf-class']) {
                         node.attrs['t-attf-class'] += action_classes;
                     } else if (node.attrs['t-att-class']) {
