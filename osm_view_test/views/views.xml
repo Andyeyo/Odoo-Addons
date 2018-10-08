@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="osm_view_test.list">
+            <field name="name">osm_view_test list</field>
+            <field name="model">osm_view_test.osm_view_test</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="osm_view_test.form">
+            <field name="name">osm_view_test form</field>
+            <field name="model">osm_view_test.osm_view_test</field>
+            <field name="arch" type="xml">
+                <form>
+                    <!--<sheet>-->
+                    <!--<div id="map">-->
+                        <field name="name" nolabel="1" widget="osm_map" lat="latitude" lng="longitude" style="width: 400px; height: 400px"/>
+                    <!--</div>-->
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <!--</sheet>-->
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="osm_view_test.osm">
+            <field name="name">osm_view_test psm</field>
+            <field name="model">osm_view_test.osm_view_test</field>
+            <field name="arch" type="xml">
+                <osm_view lat="latitude" lng="longitude" display_name="name" route="True">
+                    <!--<field name="name"/>-->
+                    <field name="bus_stop"/>
+                    <field name="name"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="end_hour"/>
+                    <field name="desc"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <t t-name="map-marker-iw">
+                                <div class="gm-iw-container o_map_global_click">
+                                    <div class="gm-iw-title">
+                                        <span>
+                                            <t t-esc="record.name.value"/>
+                                        </span>
+                                    </div>
+                                    <div class="gm-iw-content">
+                                        <p>
+                                            Lat:
+                                            <span t-esc="record.latitude.value"/>
+                                        </p>
+                                        <p>
+                                            Lng:
+                                            <span t-esc="record.longitude.value"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                    </templates>
+
+                </osm_view>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="osm_view_test.action_window">
+            <field name="name">osm_view_test window</field>
+            <field name="res_model">osm_view_test.osm_view_test</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,osm_view,kanban</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+
+        <menuitem name="osm_view_test" id="osm_view_test.menu_root"/>
+        <!-- menu categories -->
+
+        <menuitem name="Menu 1" id="osm_view_test.menu_1" parent="osm_view_test.menu_root"/>
+        <!--<menuitem name="Menu 2" id="osm_view_test.menu_2" parent="osm_view_test.menu_root"/>-->
+
+        <!-- actions -->
+
+        <menuitem name="List" id="osm_view_test.menu_1_list" parent="osm_view_test.menu_1"
+                  action="osm_view_test.action_window"/>
+        <!--<menuitem name="Server to list" id="osm_view_test" parent="osm_view_test.menu_2"-->
+        <!--action="osm_view_test.action_server"/>-->
+
+    </data>
+</odoo>
