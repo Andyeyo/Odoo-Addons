@@ -19,16 +19,16 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Message of the day">
-                    <group>
-                        <field name="longitude" digits="(4,6)"/>
-                        <field name="latitude" digits="(4,6)"/>
-                    </group>
-                    <group>
-                         <separator align="Center" string="OSM Maps" colspan="2" />
-                        <div id="map">
-                            <field name="map" nolabel="1" widget="osm_map" style="width: 400px; height: 400px"/>
-                        </div>
-                    </group>
+                    <sheet>
+                        <group>
+                            <field name="longitude" digits="(4,6)"/>
+                            <field name="latitude" digits="(4,6)"/>
+                        </group>
+                        <group>
+                            <separator align="Center" string="OSM Maps" colspan="2"/>
+                            <field name="map" nolabel="1" widget="osm_angle_widget" class="codup_gmap" lat="latitude" lng="longitude"/>
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>
