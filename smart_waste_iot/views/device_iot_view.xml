@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+
+    <!-- session form view -->
+    <record model="ir.ui.view" id="device_iot_form_view">
+        <field name="name">device_iot.form</field>
+        <field name="model">smart_waste_iot.device_iot</field>
+        <field name="arch" type="xml">
+            <form string="Device IoT Form">
+                <sheet>
+                    <group>
+                        <group string="General">
+                            <field name="name"/>
+                            <field name="lat"/>
+                            <field name="lng"/>   
+                            <field name="traccar_imei"/>                            
+                            <field name="traccar_devide_id"/>                            
+                        </group>
+                        <group string="Specifications">
+                            <field name="active"/>
+                            <field name="state"/>
+                            <field name="height"/>
+                            <field name="taken_height" widget="progressbar"/>
+                        </group>
+                        <label for="waste_ids"/>
+                        <field name="waste_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- session tree/list view -->
+    <record model="ir.ui.view" id="device_iot_tree_view">
+        <field name="name">device_iot.tree</field>
+        <field name="model">smart_waste_iot.device_iot</field>
+        <field name="arch" type="xml">
+            <tree string="Device IoT Tree" decoration-info="taken_height&lt;5" decoration-danger="taken_height&gt;85">
+                <field name="name" width="200"/>
+                <field name="traccar_imei" width="200"/>   
+                <field name="height" width="200"/>   
+                <field name="taken_height" widget="progressbar" width="200"/>
+                <field name="active" width="200"/>      
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="device_iot_graph_view">
+        <field name="name">device_iot.graph</field>
+        <field name="model">smart_waste_iot.device_iot</field>
+        <field name="arch" type="xml">
+            <graph string="Measure">
+                <field name="height" type="row"/>
+                <field name="taken_height" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="device_iot_action">
+        <field name="name">Device IoT</field>
+        <field name="res_model">smart_waste_iot.device_iot</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+  </data>
+</odoo>

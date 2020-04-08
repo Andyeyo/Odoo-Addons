@@ -1,0 +1,44 @@
+<odoo>
+
+    <!-- Category for Wase Managment -->
+    <record model="ir.module.category" id="main_category">
+        <field name="name">Wase Management</field>
+        <field name="description">Only users with permissions can access.</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <!-- User -->
+    <record id="group_user" model="res.groups">
+        <field name="name">Wase Management / User</field>
+        <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
+        <field name="category_id" ref="main_category"/>
+    </record>
+
+    <!--Last user who are Managers-->
+    <record id="group_manager" model="res.groups">
+        <field name="name">Wase Management / Manager</field>
+        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
+        <field name="category_id" ref="main_category"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <data>
+        <!-- Set by default for new users -->
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('smart_waste_iot.group_user'))]"/>
+        </record>
+        
+        <!-- Device rule for User -->
+        <record id="user_rule" model="ir.rule">
+            <field name="name">Only Responsible can modify devices</field>
+            <field name="model_id" ref="model_smart_waste_iot_device_iot"/>
+            <field name="groups" eval="[(4, ref('smart_waste_iot.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        
+    </data>
+</odoo>

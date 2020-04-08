@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        
+        <!-- Top menu item -->
+    
+        <menuitem name="Wase Management" id="smart_waste_iot.menu_root" web_icon="smart_waste_iot,static/description/icon.png"/>
+        
+        <!-- menu categories -->
+
+        <menuitem name="Devices" id="smart_waste_iot.device_iot_menu" parent="smart_waste_iot.menu_root"
+                action="device_iot_action"/>
+    
+   
+    </data>
+</odoo>
