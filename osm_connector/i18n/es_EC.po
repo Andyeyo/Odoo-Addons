@@ -1,0 +1,384 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* osm_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-11 19:41+0000\n"
+"PO-Revision-Date: 2020-11-11 14:42-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: osm_connector
+#: model:ir.model,name:osm_connector.model_ir_actions_act_window_view
+msgid "Action Window View"
+msgstr "Vista de la ventana de acciones"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Cancel drawing"
+msgstr "Cancelar dibujo"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Cancel editing, discards all changes"
+msgstr "Cancelar la edición, descarta todos los cambios"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Clear all"
+msgstr "Limpiar todo"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Clear all layers"
+msgstr "Borrar todas las capas"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click and drag to draw circle."
+msgstr "Haga clic y arrastre para dibujar un círculo."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click and drag to draw rectangle."
+msgstr "Haga clic y arrastre para dibujar un rectángulo."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click cancel to undo changes."
+msgstr "Haga clic en cancelar para deshacer los cambios."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click first point to close this shape."
+msgstr "Haga clic en el primer punto para cerrar esta forma."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click last point to finish line."
+msgstr "Haga clic en el último punto para terminar la línea."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click map to place circle marker."
+msgstr "Haga clic en el mapa para colocar el marcador circular."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click map to place marker."
+msgstr "Haga clic en el mapa para colocar el marcador."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click on a feature to remove."
+msgstr "Haga clic en una capa para eliminarla."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click to continue drawing line."
+msgstr "Haga clic para continuar dibujando la línea."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click to continue drawing shape."
+msgstr "Haga clic para continuar dibujando la forma."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click to start drawing line."
+msgstr "Haga clic para comenzar a dibujar la línea."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Click to start drawing shape."
+msgstr "Haga clic para comenzar a dibujar la forma."
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Delete last point"
+msgstr "Eliminar el último punto"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Delete last point drawn"
+msgstr "Eliminar el último punto dibujado"
+
+#. module: osm_connector
+#: model_terms:ir.ui.view,arch_db:osm_connector.form
+msgid "Demo test"
+msgstr "Prueba de demostración"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Drag handles or markers to edit features."
+msgstr "Arrastre vertices o marcadores para editar capas."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Draw a circle"
+msgstr "Dibuja un circulo"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Draw a circlemarker"
+msgstr "Dibujar un marcador circular"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Draw a marker"
+msgstr "Dibuja un marcador"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Draw a polygon"
+msgstr "Dibuja un polígono"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Draw a polyline"
+msgstr "Dibujar una polilínea"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Draw a rectangle"
+msgstr "Dibuja un rectángulo"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Edit layers"
+msgstr "Editar capas"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Finish"
+msgstr "Terminar"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Finish drawing"
+msgstr "Terminar de dibujar"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__lat
+msgid "Geo Latitude"
+msgstr "Latitud geográfica"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__lng
+msgid "Geo Longitude"
+msgstr "Longitud geográfica"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__id
+msgid "ID"
+msgstr ""
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: osm_connector
+#: model:ir.ui.menu,name:osm_connector.menu_1_list
+msgid "List"
+msgstr "Lista"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Locate"
+msgstr "Localizar"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/view/map/osm_view.js:0
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__map
+#: model_terms:ir.ui.view,arch_db:osm_connector.list
+#, python-format
+msgid "Map"
+msgstr "Mapa"
+
+#. module: osm_connector
+#: model:ir.ui.menu,name:osm_connector.menu_1
+msgid "Menu 1"
+msgstr "Menú 1"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_osm_connector_demo__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: osm_connector
+#: model:ir.ui.menu,name:osm_connector.menu_root
+msgid "OSM"
+msgstr ""
+
+#. module: osm_connector
+#: model:ir.model,name:osm_connector.model_osm_connector_demo
+msgid "Osm Connector"
+msgstr "Conector OSM"
+
+#. module: osm_connector
+#: model:ir.actions.act_window,name:osm_connector.action_window
+msgid "Osm Example"
+msgstr "Ejemplo OSM"
+
+#. module: osm_connector
+#: code:addons/osm_connector/models/ir_act_window_view.py:0
+#: code:addons/osm_connector/models/ir_ui_view.py:0
+#: model:ir.model.fields.selection,name:osm_connector.selection__ir_actions_act_window_view__view_mode__osm_view
+#: model:ir.model.fields.selection,name:osm_connector.selection__ir_ui_view__type__osm_view
+#, python-format
+msgid "OsmView"
+msgstr "Vista OSM"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Radius"
+msgstr "Radio"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Release mouse to finish drawing."
+msgstr "Suelte el mouse para terminar de dibujar."
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Remove layers"
+msgstr "Eliminar capas"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Save"
+msgstr "Grabar"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Save changes"
+msgstr "Guardar cambios"
+
+#. module: osm_connector
+#. openerp-web
+#: code:addons/osm_connector/static/src/js/widget/osm_widget.js:0
+#, python-format
+msgid "Search..."
+msgstr "Búsqueda..."
+
+#. module: osm_connector
+#: model:ir.model,name:osm_connector.model_ir_ui_view
+msgid "View"
+msgstr "Ver"
+
+#. module: osm_connector
+#: model:ir.model.fields,field_description:osm_connector.field_ir_actions_act_window_view__view_mode
+#: model:ir.model.fields,field_description:osm_connector.field_ir_ui_view__type
+msgid "View Type"
+msgstr "Tipo de vista"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="osm connector assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            
+
+            <link rel="stylesheet" type="text/css" href="/osm_connector/static/src/js/lib/css/leaflet.draw.css"/>
+            <link rel="stylesheet" type="text/css" href="/osm_connector/static/src/js/lib/css/leaflet.css"/>
+            <link rel="stylesheet" type="text/css" href="/osm_connector/static/src/js/lib/css/leaflet.extramarkers.css"/>
+            <link rel="stylesheet" type="text/css" href="/osm_connector/static/src/js/lib/css/MarkerCluster.css"/>
+            <link rel="stylesheet" type="text/css" href="/osm_connector/static/src/js/lib/css/MarkerCluster.Default.css"/>
+            <link rel="stylesheet" type="text/css" href="/osm_connector/static/src/js/lib/css/Control.OSMGeocoder.css"/>
+            
+            <script type="text/javascript" src="/osm_connector/static/src/js/lib/leaflet.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/lib/leaflet.draw.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/lib/leaflet.markercluster.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/lib/leaflet.extramarkers.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/lib/Control.OSMGeocoder.js"/>
+
+            
+            <link rel="stylesheet" type="text/scss" href="/osm_connector/static/src/scss/osm_view.scss"/>
+
+            <script type="text/javascript" src="/osm_connector/static/src/js/view/map/osm_controller.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/view/map/osm_model.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/view/map/osm_renderer.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/view/map/osm_view.js"/>
+            <script type="text/javascript" src="/osm_connector/static/src/js/view/view_registry.js"/>
+            
+
+
+            <link rel="stylesheet" type="text/scss" href="/osm_connector/static/src/scss/osm_widget.scss"  />
+            <script type="text/javascript" src="/osm_connector/static/src/js/widget/osm_widget.js"/>
+
+
+        </xpath>
+    </template>
+</odoo>

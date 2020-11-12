@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="osm_connector.form">
+            <field name="name">osm_connector form</field>
+            <field name="model">osm_connector.demo</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Demo test">
+                    <sheet> 
+                        <div class="oe_button_box" name="button_box">
+                            <button name="calculatePoints"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-wrench"
+                                string="Check Point"
+                            />
+                        </div>
+                        <group>
+                            <field name="name" />
+                            <field name="lat" />
+                            <field name="lng" />
+                        </group>
+                        <group>
+                            
+                            <field name="map" nolabel="1" widget="osm" lat="latitude" lng="longitude"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="osm_connector.list">
+        <field name="name">osm_connector list</field>
+        <field name="model">osm_connector.demo</field>
+        <field name="arch" type="xml">
+            <osm_view polyline="true" string="Map" lat="lat" lng="lng">
+                <field name="name"/>
+                <field name="lat"/>
+                <field name="lng"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div t-attf-class="oe_kanban_content">
+                                <field name="name"/>
+                                <br/>
+                                <field name="lat"/>
+                                <br/>
+                                <field name="lng"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </osm_view>
+        </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="osm_connector.action_window">
+      <field name="name">Osm Example</field>
+      <field name="res_model">osm_connector.demo</field>
+      <field name="view_mode">tree,form,osm_view</field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="OSM" id="osm_connector.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="osm_connector.menu_1" parent="osm_connector.menu_root"/>
+<!--
+    <menuitem name="Menu 2" id="osm_connector.menu_2" parent="osm_connector.menu_root"/>
+-->
+    <!-- actions -->
+
+    <menuitem name="List" id="osm_connector.menu_1_list" parent="osm_connector.menu_1"
+              action="osm_connector.action_window"/>
+<!--
+    <menuitem name="Server to list" id="osm_connector" parent="osm_connector.menu_2"
+              action="osm_connector.action_server"/>
+-->
+  </data>
+</odoo>
